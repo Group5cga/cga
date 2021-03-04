@@ -1,5 +1,7 @@
 from tkinter import *
 
+coords = {"x1":0,"y1":0,"x2":0,"y2":0}
+lines = []
 
 class Filling():
     def __init__(self, main):
@@ -9,7 +11,7 @@ class Filling():
 
         btnsel=Button(main, text="SELECT", fg='black', width=8)
         btnsel.place(x=10, y=100)
-        btnline=Button(main, text="LINE", fg='black', width=8)
+        btnline=Button(main, text="LINE", fg='black', width=8, command=self.line)
         btnline.place(x=10, y=150)
         btncir=Button(main, text="CIRCLE", fg='black', width=8)
         btncir.place(x=10, y=200)
@@ -17,9 +19,21 @@ class Filling():
         btnfill.place(x=10, y=250)
         btnclear=Button(main, text="CLEAR", fg='black', width=8)
         btnclear.place(x=10, y=300)
-        canvas = Canvas(self.main, bg='white', bd=5, relief=RIDGE, height=600, width=700)
-        canvas.place(x=80, y=0)
+        self.canvas = Canvas(self.main, bg='white', bd=5, relief=RIDGE, height=600, width=700)
+        self.canvas.place(x=80, y=0)
 
+    def click(self, e):
+        coords["x1"] = e.x
+        coords["y1"] = e.y
+        lines.append(self.canvas.create_line(coords["x1"],coords["y1"],coords["x1"],coords["y1"]))
+    def drag(self, e):
+        coords["x2"] = e.x
+        coords["y2"] = e.y
+        self.canvas.coords(lines[-1], coords["x1"],coords["y1"],coords["x2"],coords["y2"])
+    def line(self):    
+        self.canvas.bind("<ButtonPress-1>", self.click)
+        self.canvas.bind("<B1-Motion>", self.drag) 
+    
 main = Tk()
 p = Filling(main)
 main.mainloop()
