@@ -20,7 +20,7 @@ class Filling():
         btnsel.place(x=10, y=100)
         btnline=Button(main, text="LINE", fg='black', width=8, command=self.line)
         btnline.place(x=10, y=150)
-        btncir=Button(main, text="CIRCLE", fg='black', width=8)
+        btncir=Button(main, text="CIRCLE", fg='black', width=8, command=self.circle)
         btncir.place(x=10, y=200)
         btnfill=Button(main, text="FILL", fg='black', width=8)
         btnfill.place(x=10, y=250)
@@ -29,17 +29,24 @@ class Filling():
         self.canvas = Canvas(self.main, bg='white', bd=5, relief=RIDGE, height=600, width=700)
         self.canvas.place(x=80, y=0)
 
-    def click(self, e):
+    def line(self):
+        self.canvas.bind("<ButtonPress-1>", self.line_click)
+        self.canvas.bind("<B1-Motion>", self.drag) 
+    def line_click(self, e):
         coords["x1"] = e.x
         coords["y1"] = e.y
         lines.append(self.canvas.create_line(coords["x1"],coords["y1"],coords["x1"],coords["y1"]))
+    def circle(self):
+        self.canvas.bind("<ButtonPress-1>", self.circle_click)
+        self.canvas.bind("<B1-Motion>", self.drag) 
+    def circle_click(self, e):
+        coords["x1"] = e.x
+        coords["y1"] = e.y
+        lines.append(self.canvas.create_oval(coords["x1"],coords["y1"],coords["x1"],coords["y1"]))    
     def drag(self, e):
         coords["x2"] = e.x
         coords["y2"] = e.y
         self.canvas.coords(lines[-1], coords["x1"],coords["y1"],coords["x2"],coords["y2"])
-    def line(self):    
-        self.canvas.bind("<ButtonPress-1>", self.click)
-        self.canvas.bind("<B1-Motion>", self.drag) 
     def clear(self):
         self.canvas.delete("all")
         self.rect = None
