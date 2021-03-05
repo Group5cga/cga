@@ -35,6 +35,8 @@ class Filling():
         self.btnclear.place(x=10, y=300)
         self.btnboundfill=Button(main, text="Bound Fill", fg='black', width=8, command=self.bound_fill_click)
         self.btnboundfill.place(x=10, y=350)
+        self.btn8wayfill=Button(main, text="8 Fill", fg='black', width=8, command=self.eightway_fill_click)
+        self.btn8wayfill.place(x=10, y=400)
         self.canvas = Canvas(self.main, bg='white', bd=5, relief=RIDGE, height=600, width=700)
         self.canvas.place(x=80, y=0)
         
@@ -45,6 +47,7 @@ class Filling():
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
+        self.btn8wayfill.configure(relief=RAISED)
         self.canvas.unbind("<Button 1>")
         self.canvas.bind("<B1-Motion>") 
         
@@ -55,6 +58,7 @@ class Filling():
         self.btnline.configure(relief=SUNKEN)
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
+        self.btn8wayfill.configure(relief=RAISED)
         self.canvas.bind("<ButtonPress-1>", self.line_click)
         self.canvas.bind("<B1-Motion>", self.drag) 
         
@@ -70,6 +74,7 @@ class Filling():
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
+        self.btn8wayfill.configure(relief=RAISED)
         self.canvas.bind("<ButtonPress-1>", self.circle_click)
         self.canvas.bind("<B1-Motion>", self.drag) 
         
@@ -95,6 +100,7 @@ class Filling():
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=SUNKEN)
         self.btnboundfill.configure(relief=RAISED)
+        self.btn8wayfill.configure(relief=RAISED)
         self.DEFAULT_COLOR = self.color
         self.color = askcolor(color=self.color)[1]
         
@@ -105,6 +111,7 @@ class Filling():
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
+        self.btn8wayfill.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.ffillrec(self, event, 0, 0))
         self.canvas.bind("<B1-Motion>", self.nothing)
     
@@ -154,6 +161,7 @@ class Filling():
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=SUNKEN)
+        self.btn8wayfill.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.boundfill)
         self.canvas.bind("<B1-Motion>", self.nothing)
         
@@ -173,6 +181,17 @@ class Filling():
                 
         if (self.canvas.itemcget((event.x, event.y+1), 'fill')) != (current_color and self.color) : 
                 self.canvas.itemconfig((event.x, event.y+1), fill = self.color)
+                
+     def eightway_fill_click(self):
+        self.btnfill.configure(relief=RAISED)
+        self.btncir.configure(relief=RAISED)
+        self.btnsel.configure(relief=RAISED)
+        self.btnline.configure(relief=RAISED)
+        self.btnclear.configure(relief=RAISED)
+        self.btnboundfill.configure(relief=RAISED)
+        self.btn8wayfill.configure(relief=SUNKEN)
+        self.canvas.bind("<Button-1>", self.eightwayfill)
+        self.canvas.bind("<B1-Motion>", self.nothing)
         
 main = Tk()
 p = Filling(main)
