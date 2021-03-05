@@ -1,9 +1,12 @@
 from tkinter import *
 from tkinter.colorchooser import askcolor
+from PIL import Image as gambar
 
 coords = {"x1":0,"y1":0,"x2":0,"y2":0}
 lines = []
 DEFAULT_COLOR = 'black'
+x = 0
+y = 0
 stack = []
 
 class Filling():
@@ -102,30 +105,47 @@ class Filling():
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
-        self.canvas.bind("<Button-1>", self.ffillrec)
+        self.canvas.bind("<Button-1>", self.ffillrec(self, event, 0, 0))
         self.canvas.bind("<B1-Motion>", self.nothing)
     
     def nothing(self, event):
         pass
     
-    def ffillrec(self, event):
+    def ffillrec(self, x, y):
         item = self.canvas.find_closest(event.x, event.y)
         x = event.x
         y = event.y
         self.canvas.itemconfig(item, fill=self.color)
         current_color = self.canvas.itemcget(item, 'fill')
-        if (x > 0):
-            if (self.canvas.itemcget((event.x-1, event.y), 'fill')) == current_color:
-                self.ffillrec()
-        if (y > 0):
-            if (self.canvas.itemcget((event.x, event.y-1), 'fill')) == current_color : 
-                self.ffillrec()
-        if (x < self.canvas.winfo_screenwidth()-1):
-            if (self.canvas.itemcget((event.x+1, event.y), 'fill')) == current_color : 
-                self.ffillrec()
-        if (y < self.canvas.winfo_screenheight()-1):
-            if (self.canvas.itemcget((event.x, event.y+1), 'fill')) == current_color : 
-                self.ffillrec()
+        if(x < 0 or x >= self.canvas.winfo_screenwidth() or y < 0 or y >= self.canvas.winfo_screenheight()):
+            return
+        if(x < 0 or x >= self.canvas.winfo_screenwidth() or y < 0 or y >= self.canvas.winfo_screenheight())!=current_color:
+            return
+        if(x < 0 or x >= self.canvas.winfo_screenwidth() or y < 0 or y >= self.canvas.winfo_screenheight())== current_color:
+            return
+        gambar.putpixel((x,y), self.color)
+        print(x, y) #ngetes isinya apa, tapi functionnya aja error gimana mau ngeprint wkwkwk
+        ffillrec(self, x+1, y)
+        ffillrec(self, x-1, y)
+        ffillrec(self, x, y+1)
+        ffillrec(self, x, y-1)
+        #item = self.canvas.find_closest(event.x, event.y)
+        #x = event.x
+        #y = event.y
+        #self.canvas.itemconfig(item, fill=self.color)
+        #current_color = self.canvas.itemcget(item, 'fill')
+        #if (x > 0):
+            #if (self.canvas.itemcget((event.x-1, event.y), 'fill')) == current_color:
+                #self.ffillrec()
+        #if (y > 0):
+            #if (self.canvas.itemcget((event.x, event.y-1), 'fill')) == current_color : 
+                #self.ffillrec()
+        #if (x < self.canvas.winfo_screenwidth()-1):
+            #if (self.canvas.itemcget((event.x+1, event.y), 'fill')) == current_color : 
+                #self.ffillrec()
+        #if (y < self.canvas.winfo_screenheight()-1):
+            #if (self.canvas.itemcget((event.x, event.y+1), 'fill')) == current_color : 
+                #self.ffillrec()
                 
     def bound_fill_click(self):
         self.btnfill.configure(relief=RAISED)
