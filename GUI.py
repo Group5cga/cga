@@ -56,8 +56,8 @@ class Filling():
         self.tick = 0
 
     def color_choice(self):
-        self.color = askcolor(color=self.color)
         self.DEFAULT_COLOR = self.color
+        self.color = askcolor()
 
     def clickfillrec(self):
         self.canvas.bind("<Button-1>", self.ffillrec)
@@ -73,13 +73,13 @@ class Filling():
         current_color = self.canvas.itemcget(item, 'fill')
        
         if x > 0 or self.canvas.itemcget((event.x-1, event.y), 'fill') == current_color:
-            self.canvas.itemconfig((event.x-1, event.y), fill= self.color)
+            self.canvas.itemconfig((event.x-1, event.y), fill = self.color)
         if y > 0 or self.canvas.itemcget((event.x, event.y-1), 'fill') == current_color : 
-            self.canvas.itemconfig((event.x, event.y-1), fill= self.color)
-        if x < self.canvas.winfo_screenwidth or self.canvas.itemcget((event.x+1, event.y), 'fill') == current_color : 
-            self.canvas.itemconfig((event.x+1, event.y), fill= self.color)
-        if y < self.canvas.winfo_screenheight or self.canvas.itemcget((event.x, event.y+1), 'fill') == current_color : 
-            self.canvas.itemconfig((event.x, event.y+1), fill= self.color)
+            self.canvas.itemconfig((event.x, event.y-1), fill = self.color)
+        if x < self.canvas.winfo_screenwidth() or self.canvas.itemcget((event.x+1, event.y), 'fill') == current_color : 
+            self.canvas.itemconfig((event.x+1, event.y), fill = self.color)
+        if y < self.canvas.winfo_screenheight() or self.canvas.itemcget((event.x, event.y+1), 'fill') == current_color : 
+            self.canvas.itemconfig((event.x, event.y+1), fill = self.color)
 
         
 main = Tk()
