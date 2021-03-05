@@ -72,15 +72,19 @@ class Filling():
         y = event.y
         current_color = self.canvas.itemcget(item, 'fill')
        
-        if x > 0 or self.canvas.itemcget((event.x-1, event.y), 'fill') == current_color:
-            self.canvas.itemconfig((event.x-1, event.y), fill = self.color)
-        if y > 0 or self.canvas.itemcget((event.x, event.y-1), 'fill') == current_color : 
-            self.canvas.itemconfig((event.x, event.y-1), fill = self.color)
-        if x < self.canvas.winfo_screenwidth() or self.canvas.itemcget((event.x+1, event.y), 'fill') == current_color : 
-            self.canvas.itemconfig((event.x+1, event.y), fill = self.color)
-        if y < self.canvas.winfo_screenheight() or self.canvas.itemcget((event.x, event.y+1), 'fill') == current_color : 
-            self.canvas.itemconfig((event.x, event.y+1), fill = self.color)
-
+        if (x > 0):
+            if (self.canvas.itemcget((event.x-1, event.y), 'fill')) == current_color:
+                self.canvas.update_idletasks()
+                self.canvas.itemconfigure((event.x-1, event.y), fill = self.color)
+        if (y > 0):
+            if (self.canvas.itemcget((event.x, event.y-1), 'fill')) == current_color : 
+                self.canvas.itemconfigure((event.x, event.y-1), fill = self.color)
+        if (x < self.canvas.winfo_screenwidth()-1):
+            if (self.canvas.itemcget((event.x+1, event.y), 'fill')) == current_color : 
+                self.canvas.itemconfigure((event.x+1, event.y), fill = self.color)
+        if (y < self.canvas.winfo_screenheight()-1):
+            if (self.canvas.itemcget((event.x, event.y+1), 'fill')) == current_color : 
+                self.canvas.itemconfigure((event.x, event.y+1), fill = self.color)
         
 main = Tk()
 p = Filling(main)
