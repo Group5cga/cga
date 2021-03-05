@@ -36,6 +36,12 @@ class Filling():
         self.canvas.place(x=80, y=0)
         
     def select(self):
+        self.btnfill.configure(relief=RAISED)
+        self.btncir.configure(relief=RAISED)
+        self.btnsel.configure(relief=SUNKEN)
+        self.btnline.configure(relief=RAISED)
+        self.btnclear.configure(relief=RAISED)
+        self.btnboundfill.configure(relief=RAISED)
         self.canvas.unbind("<Button 1>")
         self.canvas.bind("<B1-Motion>") 
         
@@ -45,6 +51,7 @@ class Filling():
         self.btnsel.configure(relief=RAISED)
         self.btnline.configure(relief=SUNKEN)
         self.btnclear.configure(relief=RAISED)
+        self.btnboundfill.configure(relief=RAISED)
         self.canvas.bind("<ButtonPress-1>", self.line_click)
         self.canvas.bind("<B1-Motion>", self.drag) 
         
@@ -59,6 +66,7 @@ class Filling():
         self.btnsel.configure(relief=RAISED)
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=RAISED)
+        self.btnboundfill.configure(relief=RAISED)
         self.canvas.bind("<ButtonPress-1>", self.circle_click)
         self.canvas.bind("<B1-Motion>", self.drag) 
         
@@ -78,6 +86,12 @@ class Filling():
         self.tick = 0
         
     def color_choice(self):
+        self.btnfill.configure(relief=RAISED)
+        self.btncir.configure(relief=RAISED)
+        self.btnsel.configure(relief=RAISED)
+        self.btnline.configure(relief=RAISED)
+        self.btnclear.configure(relief=SUNKEN)
+        self.btnboundfill.configure(relief=RAISED)
         self.DEFAULT_COLOR = self.color
         self.color = askcolor()
         
@@ -87,6 +101,7 @@ class Filling():
         self.btnsel.configure(relief=RAISED)
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=RAISED)
+        self.btnboundfill.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.ffillrec)
         self.canvas.bind("<B1-Motion>", self.nothing)
     
@@ -112,6 +127,12 @@ class Filling():
                 self.canvas.itemconfig((event.x, event.y+1), fill = self.color)
                 
     def bound_fill_click(self):
+        self.btnfill.configure(relief=RAISED)
+        self.btncir.configure(relief=RAISED)
+        self.btnsel.configure(relief=RAISED)
+        self.btnline.configure(relief=RAISED)
+        self.btnclear.configure(relief=RAISED)
+        self.btnboundfill.configure(relief=SUNKEN)
         self.canvas.bind("<Button-1>", self.boundfill)
         self.canvas.bind("<B1-Motion>", self.nothing)
         
