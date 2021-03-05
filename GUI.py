@@ -20,18 +20,18 @@ class Filling():
         menubar.add_cascade(label="File", menu=filemenu)
         main.config(menu=menubar)
 
-        btnsel=Button(main, text="SELECT", fg='black', width=8, command=self.select)
-        btnsel.place(x=10, y=100)
-        btnline=Button(main, text="LINE", fg='black', width=8, command=self.line)
-        btnline.place(x=10, y=150)
-        btncir=Button(main, text="CIRCLE", fg='black', width=8, command=self.circle)
-        btncir.place(x=10, y=200)
-        btnfill=Button(main, text="FILL", fg='black', width=8, command=self.clickfillrec)
-        btnfill.place(x=10, y=250)
-        btnclear=Button(main, text="COLOR", fg='black', width=8, command=self.color_choice)
-        btnclear.place(x=10, y=300)
-        btnboundfill=Button(main, text="Bound Fill", fg='black', width=8, command=self.bound_fill_click)
-        btnboundfill.place(x=10, y=350)
+        self.btnsel=Button(main, text="SELECT", fg='black', width=8, command=self.select)
+        self.btnsel.place(x=10, y=100)
+        self.btnline=Button(main, text="LINE", fg='black', width=8, command=self.line)
+        self.btnline.place(x=10, y=150)
+        self.btncir=Button(main, text="CIRCLE", fg='black', width=8, command=self.circle)
+        self.btncir.place(x=10, y=200)
+        self.btnfill=Button(main, text="FILL", fg='black', width=8, command=self.clickfillrec)
+        self.btnfill.place(x=10, y=250)
+        self.btnclear=Button(main, text="COLOR", fg='black', width=8, command=self.color_choice)
+        self.btnclear.place(x=10, y=300)
+        self.btnboundfill=Button(main, text="Bound Fill", fg='black', width=8, command=self.bound_fill_click)
+        self.btnboundfill.place(x=10, y=350)
         self.canvas = Canvas(self.main, bg='white', bd=5, relief=RIDGE, height=600, width=700)
         self.canvas.place(x=80, y=0)
         
@@ -40,6 +40,11 @@ class Filling():
         self.canvas.bind("<B1-Motion>") 
         
     def line(self):
+        self.btnfill.configure(relief=RAISED)
+        self.btncir.configure(relief=RAISED)
+        self.btnsel.configure(relief=RAISED)
+        self.btnline.configure(relief=SUNKEN)
+        self.btnclear.configure(relief=RAISED)
         self.canvas.bind("<ButtonPress-1>", self.line_click)
         self.canvas.bind("<B1-Motion>", self.drag) 
         
@@ -49,6 +54,11 @@ class Filling():
         lines.append(self.canvas.create_line(coords["x1"],coords["y1"],coords["x1"],coords["y1"]))
         
     def circle(self):
+        self.btnfill.configure(relief=RAISED)
+        self.btncir.configure(relief=SUNKEN)
+        self.btnsel.configure(relief=RAISED)
+        self.btnline.configure(relief=RAISED)
+        self.btnclear.configure(relief=RAISED)
         self.canvas.bind("<ButtonPress-1>", self.circle_click)
         self.canvas.bind("<B1-Motion>", self.drag) 
         
@@ -72,6 +82,11 @@ class Filling():
         self.color = askcolor()
         
     def clickfillrec(self):
+        self.btnfill.configure(relief=SUNKEN)
+        self.btncir.configure(relief=RAISED)
+        self.btnsel.configure(relief=RAISED)
+        self.btnline.configure(relief=RAISED)
+        self.btnclear.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.ffillrec)
         self.canvas.bind("<B1-Motion>", self.nothing)
     
