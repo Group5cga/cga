@@ -93,7 +93,7 @@ class Filling():
         self.btnclear.configure(relief=SUNKEN)
         self.btnboundfill.configure(relief=RAISED)
         self.DEFAULT_COLOR = self.color
-        self.color = askcolor()
+        self.color = askcolor(color=self.color)[1]
         
     def clickfillrec(self):
         self.btnfill.configure(relief=SUNKEN)
@@ -108,23 +108,24 @@ class Filling():
     def nothing(self, event):
         pass
     
-    def ffillrec(self, event): #blom jalan
+    def ffillrec(self, event):
         item = self.canvas.find_closest(event.x, event.y)
         x = event.x
         y = event.y
+        self.canvas.itemconfig(item, fill=self.color)
         current_color = self.canvas.itemcget(item, 'fill')
         if (x > 0):
             if (self.canvas.itemcget((event.x-1, event.y), 'fill')) == current_color:
-                self.canvas.itemconfig((event.x-1, event.y), fill = self.color)
+                self.ffillrec()
         if (y > 0):
             if (self.canvas.itemcget((event.x, event.y-1), 'fill')) == current_color : 
-                self.canvas.itemconfig((event.x, event.y-1), fill = self.color)
+                self.ffillrec()
         if (x < self.canvas.winfo_screenwidth()-1):
             if (self.canvas.itemcget((event.x+1, event.y), 'fill')) == current_color : 
-                self.canvas.itemconfig((event.x+1, event.y), fill = self.color)
+                self.ffillrec()
         if (y < self.canvas.winfo_screenheight()-1):
             if (self.canvas.itemcget((event.x, event.y+1), 'fill')) == current_color : 
-                self.canvas.itemconfig((event.x, event.y+1), fill = self.color)
+                self.ffillrec()
                 
     def bound_fill_click(self):
         self.btnfill.configure(relief=RAISED)
