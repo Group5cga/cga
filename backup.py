@@ -130,20 +130,20 @@ class Filling():
     def ffillrec(self, x, y): 
         item = self.canvas.find_closest(x, y)
         current_color = self.canvas.itemcget(item, 'fill')
-        print(self.colorrgb)
-        self.flood.putpixel((x,y), self.colorrgb)
+        #print(self.colorrgb)
+        self.flood.putpixel((x,y), (255, 170, 0))
         if (x > 0):
             if (self.canvas.itemcget((x-1, y), 'fill')) == current_color:
-                self.ffillrec(self, x+1, y)
+                self.ffillrec(x+1, y)
         if (y > 0):
             if (self.canvas.itemcget((x, y), 'fill')) == current_color: 
-                self.ffillrec(self, x-1, y)
+                self.ffillrec(x-1, y)
         if (x < self.canvas.winfo_screenwidth()-1):
             if (self.canvas.itemcget((x+1, y), 'fill')) == current_color: 
-                self.ffillrec(self, x, y+1)
+                self.ffillrec(x, y+1)
         if (y < self.canvas.winfo_screenheight()-1):
             if (self.canvas.itemcget((x, y+1), 'fill')) == current_color: 
-                self.ffillrec(self, x, y-1)
+                self.ffillrec(x, y-1)
         #item = self.canvas.find_closest(event.x, event.y)
         #x = event.x
         #y = event.y
