@@ -1,3 +1,14 @@
+#TODO
+# flood fill recursive done
+# flood fill stack
+# boundary fill recursive done
+# boundary fill stack
+# eight way fill done
+# scanline region fill 
+# scanline region fill stack
+# region fill stack
+#
+
 from tkinter import *
 from tkinter.colorchooser import askcolor
 from PIL import Image as gambar
@@ -198,13 +209,14 @@ class Filling():
         if (self.canvas.itemcget((event.x, event.y))) != boundary_color) and (self.canvas.itemcget((event.x, event.y))) != self.color):
             gambar.putpixel((x,y), self.color)
             eightwayfill(x + 1, y, boundary_color); 
-            eightwayfill(x, y + 1, boundary_color); 
             eightwayfill(x - 1, y, boundary_color); 
+            eightwayfill(x, y + 1, boundary_color); 
             eightwayfill(x, y - 1, boundary_color); 
-            eightwayfill(x - 1, y - 1, boundary_color); 
-            eightwayfill(x - 1, y + 1, boundary_color); 
-            eightwayfill(x + 1, y - 1, boundary_color); 
             eightwayfill(x + 1, y + 1, boundary_color);
+            eightwayfill(x - 1, y - 1, boundary_color); 
+            eightwayfill(x + 1, y - 1, boundary_color); 
+            eightwayfill(x - 1, y + 1, boundary_color);
+            
     def floodfillstack(self, event, x,y)#blm jalan
         floodfill = []
         while(!floodfill.empty())
