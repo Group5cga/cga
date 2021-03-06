@@ -217,24 +217,24 @@ class Filling():
             eightwayfill(x + 1, y - 1, boundary_color); 
             eightwayfill(x - 1, y + 1, boundary_color);
             
-    def floodfillstack(self, event, x,y)#blm jalan
+    def floodfillstack(self, event, x,y):#blm jalan
         floodfill = []
-        while(!floodfill.empty())
-            if(floodfillstackdo(x,y))
+        while(not floodfill.empty()):
+            if(floodfillstackdo(x,y)):
                 floodfill.put(x, y - 1)
                 floodfill.put(x, y + 1)
                 floodfill.put(x - 1, y)
                 floodfill.put(x + 1, y)
-    def floodfillstackdo(self,event,x,y)#blm jalan
-        if (y < 0) 
+    def floodfillstackdo(self,event,x,y):#blm jalan
+        if (y < 0):
             return
-        if (x < 0) 
+        if (x < 0):
             return
-        if (y > self.canvas.winfo_screenheight()-1) 
+        if (y > self.canvas.winfo_screenheight()-1):
             return
-        if (x > self.canvas.winfo_screenheight()-1) 
+        if (x > self.canvas.winfo_screenheight()-1):
             return
-        if (item != current_color)
+        if (item != current_color):
         gambar.putpixel((x,y), self.color)
         
 main = Tk()
