@@ -132,7 +132,7 @@ class Filling():
         if(x < 0 or x >= self.canvas.winfo_screenwidth() or y < 0 or y >= self.canvas.winfo_screenheight())== current_color:
             return
         gambar.putpixel((x,y), self.color)
-        print(x, y) #ngetes isinya apa, tapi functionnya aja error gimana mau ngeprint wkwkwk
+        print(x, y)
         ffillrec(self, x+1, y)
         ffillrec(self, x-1, y)
         ffillrec(self, x, y+1)
@@ -194,7 +194,7 @@ class Filling():
         self.canvas.bind("<Button-1>", self.eightwayfillrec)
         self.canvas.bind("<B1-Motion>", self.nothing)
         
-    def eightwayfillrec(self, event, x, y, DEFAULT_COLOR):
+    def eightwayfillrec(self, event, x, y, DEFAULT_COLOR): #blm jalan
         if (self.canvas.itemcget((event.x, event.y))) != boundary_color) and (self.canvas.itemcget((event.x, event.y))) != self.color):
             gambar.putpixel((x,y), self.color)
             eightwayfill(x + 1, y, boundary_color); 
@@ -204,8 +204,26 @@ class Filling():
             eightwayfill(x - 1, y - 1, boundary_color); 
             eightwayfill(x - 1, y + 1, boundary_color); 
             eightwayfill(x + 1, y - 1, boundary_color); 
-            eightwayfill(x + 1, y + 1, boundary_color); 
-        
+            eightwayfill(x + 1, y + 1, boundary_color);
+    def floodfillstack(self, event, x,y)#blm jalan
+        floodfill = []
+        while(!floodfill.empty())
+            if(floodfillstackdo(x,y))
+                floodfill.put(x, y - 1)
+                floodfill.put(x, y + 1)
+                floodfill.put(x - 1, y)
+                floodfill.put(x + 1, y)
+    def floodfillstackdo(self,event,x,y)#blm jalan
+        if (y < 0) 
+            return
+        if (x < 0) 
+            return
+        if (y > self.canvas.winfo_screenheight()-1) 
+            return
+        if (x > self.canvas.winfo_screenheight()-1) 
+            return
+        if (item != current_color)
+        gambar.putpixel((x,y), self.color)
         
 main = Tk()
 p = Filling(main)
