@@ -110,8 +110,8 @@ class Filling():
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=RAISED)
         self.DEFAULT_COLOR = self.color
-        self.color = askcolor()[0]
-        self.colorrgb = tuple(map(int, self.color))
+        self.color = askcolor()[1]
+        #self.colorrgb = tuple(map(int, self.color))
         
     def clickfillrec(self):
         self.btnfill.configure(relief=SUNKEN)
@@ -121,23 +121,25 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=RAISED)
-        self.canvas.bind("<Button-1>", self.ffillrec(x, y))
+        self.canvas.bind("<Button-1>", self.ffillrec)
         self.canvas.bind("<B1-Motion>", self.nothing)
     
     def nothing(self, event):
         pass
         
-    def ffillrec(self, x, y): 
-        item = self.canvas.find_closest(x, y)
+    def ffillrec(self, event): 
+        item = self.canvas.find_closest(event.x, event.y)
         current_color = self.canvas.itemcget(item, 'fill')
-        #print(self.colorrgb)
-        self.flood.putpixel((x,y), (255, 170, 0))
+        self.canvas.create_rectangle(event.x, event.y, event.x+1, event.y+1, fill=self.color, outline=self.color)
+        #print(event.x)
+        #print(event.y)
+        #print(self.color)
         if (x > 0):
             if (self.canvas.itemcget((x-1, y), 'fill')) == current_color:
-                self.ffillrec(x+1, y)
-        if (y > 0):
-            if (self.canvas.itemcget((x, y), 'fill')) == current_color: 
                 self.ffillrec(x-1, y)
+        if (y > 0):
+            if (self.canvas.itemcget((x, y-1), 'fill')) == current_color: 
+                self.ffillrec(x, y-1)
         if (x < self.canvas.winfo_screenwidth()-1):
             if (self.canvas.itemcget((x+1, y), 'fill')) == current_color: 
                 self.ffillrec(x, y+1)
