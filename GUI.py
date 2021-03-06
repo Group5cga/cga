@@ -112,17 +112,18 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=RAISED)
-        self.canvas.bind("<Button-1>", self.ffillrec(self, event, 0, 0))
+        self.canvas.bind("<Button-1>", self.ffillrec(x, y))
         self.canvas.bind("<B1-Motion>", self.nothing)
     
     def nothing(self, event):
         pass
-    
-    def ffillrec(self, x, y):
-        item = self.canvas.find_closest(event.x, event.y)
+    def carixy(self,event):
+        global x, y, item
         x = event.x
         y = event.y
-        self.canvas.itemconfig(item, fill=self.color)
+        self.item = self.canvas.find_closest(event.x, event.y)
+    def ffillrec(self, x, y):
+        #self.canvas.itemconfig(self.item, fill=self.color)
         current_color = self.canvas.itemcget(item, 'fill')
         if(x < 0 or x >= self.canvas.winfo_screenwidth() or y < 0 or y >= self.canvas.winfo_screenheight()):
             return
@@ -182,7 +183,7 @@ class Filling():
         if (self.canvas.itemcget((event.x, event.y+1), 'fill')) != (current_color and self.color) : 
                 self.canvas.itemconfig((event.x, event.y+1), fill = self.color)
                 
-     def eightway_fill_click(self):
+    def eightway_fill_click(self):
         self.btnfill.configure(relief=RAISED)
         self.btncir.configure(relief=RAISED)
         self.btnsel.configure(relief=RAISED)
@@ -190,8 +191,21 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=SUNKEN)
-        self.canvas.bind("<Button-1>", self.eightwayfill)
+        self.canvas.bind("<Button-1>", self.eightwayfillrec)
         self.canvas.bind("<B1-Motion>", self.nothing)
+        
+    def eightwayfillrec(self, event, x, y, DEFAULT_COLOR):
+        if (self.canvas.itemcget((event.x, event.y))) != boundary_color) and (self.canvas.itemcget((event.x, event.y))) != self.color):
+            gambar.putpixel((x,y), self.color)
+            eightwayfill(x + 1, y, boundary_color); 
+            eightwayfill(x, y + 1, boundary_color); 
+            eightwayfill(x - 1, y, boundary_color); 
+            eightwayfill(x, y - 1, boundary_color); 
+            eightwayfill(x - 1, y - 1, boundary_color); 
+            eightwayfill(x - 1, y + 1, boundary_color); 
+            eightwayfill(x + 1, y - 1, boundary_color); 
+            eightwayfill(x + 1, y + 1, boundary_color); 
+        
         
 main = Tk()
 p = Filling(main)
