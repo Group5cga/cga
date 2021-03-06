@@ -1,3 +1,3 @@
 # cga
 
-PA CGA 8
+run pip install -r requirement.txt
