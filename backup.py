@@ -110,7 +110,8 @@ class Filling():
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=RAISED)
         self.DEFAULT_COLOR = self.color
-        self.color = askcolor(color=self.color)[0]
+        self.color = askcolor()[0]
+        self.colorrgb = tuple(map(int, self.color))
         
     def clickfillrec(self):
         self.btnfill.configure(relief=SUNKEN)
@@ -129,7 +130,8 @@ class Filling():
     def ffillrec(self, x, y): 
         item = self.canvas.find_closest(x, y)
         current_color = self.canvas.itemcget(item, 'fill')
-        self.flood.putpixel((x,y), self.color)       
+        print(self.colorrgb)
+        self.flood.putpixel((x,y), self.colorrgb)
         if (x > 0):
             if (self.canvas.itemcget((x-1, y), 'fill')) == current_color:
                 self.ffillrec(self, x+1, y)
