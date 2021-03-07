@@ -73,7 +73,7 @@ class Filling():
     def line_click(self, e):
         coords["x1"] = e.x
         coords["y1"] = e.y
-        lines.append(self.canvas.create_line(coords["x1"],coords["y1"],coords["x1"],coords["y1"]))
+        lines.append(self.canvas.create_line(coords["x1"],coords["y1"],coords["x1"],coords["y1"],fill=self.color))
         
     def circle(self):
         self.btnfill.configure(relief=RAISED)
@@ -89,7 +89,7 @@ class Filling():
     def circle_click(self, e):
         coords["x1"] = e.x
         coords["y1"] = e.y
-        lines.append(self.canvas.create_oval(coords["x1"],coords["y1"],coords["x1"],coords["y1"]))    
+        lines.append(self.canvas.create_oval(coords["x1"],coords["y1"],coords["x1"],coords["y1"],outline=self.color))    
         
     def drag(self, e):
         coords["x2"] = e.x
@@ -110,9 +110,8 @@ class Filling():
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=RAISED)
         self.DEFAULT_COLOR = self.color
-        self.color = askcolor()[1]
-        #self.colorrgb = tuple(map(int, self.color))
-        
+        self.color = askcolor(color=self.color)[1]
+
     def clickfillrec(self):
         self.btnfill.configure(relief=SUNKEN)
         self.btncir.configure(relief=RAISED)
@@ -121,31 +120,37 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=RAISED)
-        self.canvas.bind("<Button-1>", self.ffillrec)
+        self.canvas.bind("<Button-1>", self.position)
         self.canvas.bind("<B1-Motion>", self.nothing)
-    
+
+    def position(self,event):
+        x = event.x
+        y = event.y
+        #item = self.canvas.find_closest(event.x, event.y)
+        self.ffillrec(x,y)
+
     def nothing(self, event):
         pass
         
-    def ffillrec(self, event): 
-        item = self.canvas.find_closest(event.x, event.y)
-        current_color = self.canvas.itemcget(item, 'fill')
-        self.canvas.create_rectangle(event.x, event.y, event.x+1, event.y+1, fill=self.color, outline=self.color)
-        #print(event.x)
-        #print(event.y)
+    def ffillrec(self, x, y):
+        item = (x,y)
+        current_color = self.canvas.itemcget(item, "fill")
+        self.canvas.create_rectangle(x, y, x+1, y+1, fill=self.color, outline=self.color)
+        #print(x)
+        #print(x)
         #print(self.color)
         if (x > 0):
-            if (self.canvas.itemcget((x-1, y), 'fill')) == current_color:
-                self.ffillrec(x-1, y)
+            if (self.canvas.itemcget(((x-1), y), 'fill')) == current_color:
+                self.ffillrec((x-1), y)
         if (y > 0):
-            if (self.canvas.itemcget((x, y-1), 'fill')) == current_color: 
-                self.ffillrec(x, y-1)
-        if (x < self.canvas.winfo_screenwidth()-1):
-            if (self.canvas.itemcget((x+1, y), 'fill')) == current_color: 
-                self.ffillrec(x, y+1)
-        if (y < self.canvas.winfo_screenheight()-1):
-            if (self.canvas.itemcget((x, y+1), 'fill')) == current_color: 
-                self.ffillrec(x, y-1)
+            if (self.canvas.itemcget((x, (y-1)), 'fill')) == current_color: 
+                self.ffillrec(x, (y-1))
+        if (x < 800-1):
+            if (self.canvas.itemcget(((x+1), y), 'fill')) == current_color: 
+                self.ffillrec((x+1), y)
+        if (y < 620-1):
+            if (self.canvas.itemcget((x, (y+1)), 'fill')) == current_color: 
+                self.ffillrec(x, (y+1))
         #item = self.canvas.find_closest(event.x, event.y)
         #x = event.x
         #y = event.y
