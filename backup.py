@@ -89,7 +89,7 @@ class Filling():
     def circle_click(self, e):
         coords["x1"] = e.x
         coords["y1"] = e.y
-        lines.append(self.canvas.create_oval(coords["x1"],coords["y1"],coords["x1"],coords["y1"],fill='white',outline=self.color))    
+        lines.append(self.canvas.create_oval(coords["x1"],coords["y1"],coords["x1"],coords["y1"],outline=self.color))    
         
     def drag(self, e):
         coords["x2"] = e.x
