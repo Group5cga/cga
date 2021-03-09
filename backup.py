@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter.colorchooser import askcolor
 from PIL import Image
+import sys
+sys.setrecursionlimit(5000)
 
 coords = {"x1":0,"y1":0,"x2":0,"y2":0}
 lines = []
