@@ -40,6 +40,7 @@ class Filling():
         self.btn8wayfill.place(x=10, y=400)
         self.canvas = Canvas(self.main, bg='white', bd=5, relief=RIDGE, height=600, width=700)
         self.canvas.place(x=80, y=0)
+        self.canvas.create_rectangle(0, 0, 750, 600, fill='white', outline='white')
 
     def locate_xy(self, event):
         global current_x, current_y, close, current_color
@@ -89,7 +90,7 @@ class Filling():
     def circle_click(self, e):
         coords["x1"] = e.x
         coords["y1"] = e.y
-        lines.append(self.canvas.create_oval(coords["x1"],coords["y1"],coords["x1"],coords["y1"],fill="white",outline=self.color))    
+        lines.append(self.canvas.create_oval(coords["x1"],coords["y1"],coords["x1"],coords["y1"],outline=self.color))    
         
     def drag(self, e):
         coords["x2"] = e.x
@@ -133,23 +134,30 @@ class Filling():
         pass
         
     def ffillrec(self, x, y):
-        item = (x,y)
+        item = self.canvas.find_closest(x, y)
+        item2 = self.canvas.find_closest(x-1, y)
+        item3 = self.canvas.find_closest(x, y-1)
+        item4 = self.canvas.find_closest(x+1, y)
+        item5 = self.canvas.find_closest(x, y+1)
         current_color = self.canvas.itemcget(item, "fill")
-        self.canvas.create_rectangle(x, y, x+1, y+1, fill=self.color, outline=self.color)
-        #print(x)
-        #print(x)
+        self.canvas.create_rectangle(x, y, x, y, fill=self.color, outline=self.color)
+        print(x)
+        print(y)
+        hihi = self.canvas.itemcget(item2, 'fill')
+        print(hihi)
         #print(self.color)
+        print(current_color)
         if (x > 0):
-            if (self.canvas.itemcget(((x-1), y), 'fill')) == current_color:
+            if (self.canvas.itemcget(item2, 'fill')) == current_color:
                 self.ffillrec((x-1), y)
         if (y > 0):
-            if (self.canvas.itemcget((x, (y-1)), 'fill')) == current_color: 
+            if (self.canvas.itemcget(item3, 'fill')) == current_color: 
                 self.ffillrec(x, (y-1))
         if (x < 800-1):
-            if (self.canvas.itemcget(((x+1), y), 'fill')) == current_color: 
+            if (self.canvas.itemcget(item4, 'fill')) == current_color: 
                 self.ffillrec((x+1), y)
         if (y < 620-1):
-            if (self.canvas.itemcget((x, (y+1)), 'fill')) == current_color: 
+            if (self.canvas.itemcget(item5, 'fill')) == current_color:
                 self.ffillrec(x, (y+1))
         #item = self.canvas.find_closest(event.x, event.y)
         #x = event.x
