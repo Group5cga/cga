@@ -40,9 +40,9 @@ class Filling():
         self.btn8wayfill.place(x=10, y=400)
         self.btnscanfillflo=Button(main, text="Scanfill Flood", fg='black', width=8, command=self.scan_fillflo_click)
         self.btnscanfillflo.place(x=10, y=450)
-        self.canvas = Canvas(self.main, bg='white', bd=5, relief=RIDGE, height=400, width=500)
+        self.canvas = Canvas(self.main, bg='white', bd=5, relief=RIDGE, height=600, width=700)
         self.canvas.place(x=80, y=0)
-        self.canvas.create_rectangle(0, 0, 550, 400, fill='white', outline='white')
+        self.canvas.create_rectangle(0, 0, 750, 600, fill='white', outline='white')
 
     def locate_xy(self, event):
         global current_x, current_y, close, current_color
