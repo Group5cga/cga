@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter.colorchooser import askcolor
 from PIL import Image
 import sys
-sys.setrecursionlimit(2250)
+sys.setrecursionlimit(2450)
 
 coords = {"x1":0,"y1":0,"x2":0,"y2":0}
 lines = []
@@ -151,30 +151,16 @@ class Filling():
         item5 = self.canvas.find_closest(x, y+1)
         current_color = self.canvas.itemcget(item, "fill")
         self.canvas.create_rectangle(x, y, x, y, fill=self.color, outline=self.color)
-        hihi = self.canvas.itemcget(item2, 'fill')
-        if (x >= get_coords[0]):
+        if (x >= get_coords[0] and x <= get_coords[2]):
             if (self.canvas.itemcget(item2, 'fill')) == current_color:
                 self.ffillrec((x-1), y)
-        if (x <= get_coords[2]):
             if (self.canvas.itemcget(item4, 'fill')) == current_color: 
                 self.ffillrec((x+1), y)
-        if (y >= get_coords[1]):
+        if (y >= get_coords[1] and y <= get_coords[3]):
             if (self.canvas.itemcget(item3, 'fill')) == current_color: 
                 self.ffillrec(x, (y-1))
-        if (y <= get_coords[3]):
             if (self.canvas.itemcget(item5, 'fill')) == current_color:
                 self.ffillrec(x, (y+1))
-        #item = self.canvas.find_closest(event.x, event.y)
-        #x = event.x
-        #y = event.y
-        #self.canvas.itemconfig(item, fill=self.color)
-        #current_color = self.canvas.itemcget(item, 'fill')
-        #if(x < 0 or x >= self.canvas.winfo_screenwidth() or y < 0 or y >= self.canvas.winfo_screenheight()):
-        #    return
-        #if(x < 0 or x >= self.canvas.winfo_screenwidth() or y < 0 or y >= self.canvas.winfo_screenheight())!=current_color:
-        #    return
-        #if(x < 0 or x >= self.canvas.winfo_screenwidth() or y < 0 or y >= self.canvas.winfo_screenheight())== current_color:
-        #    return
         
                 
     def bound_fill_click(self):
