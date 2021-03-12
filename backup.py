@@ -279,8 +279,42 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=RAISED)
-        self.canvas.bind("<Button-1>", self.scanfillflo)
+        self.canvas.bind("<Button-1>", self.scanflopos)
         self.canvas.bind("<B1-Motion>", self.nothing)
+    
+    def scanflopos(self,event):
+        global get_coords
+        get_coords = self.canvas.coords(lines[0])
+        get_coords = tuple(map(int, get_coords))
+        x = event.x
+        y = event.y
+        self.scanfillflo(x,y)
+
+    def scanfillflo(self, x, y): #result = not responding wkwkwk
+        i = x
+        item = self.canvas.find_closest(x, y)
+        item2 = self.canvas.find_closest(i, y)
+        current_color = self.canvas.itemcget(item, "fill")
+        if current_color != self.color:
+            while i >= 0:
+                if self.canvas.itemcget(item2, "fill") != current_color:
+                    self.canvas.create_rectangle(x, y, x, y, outline=self.color)
+                    i -= 1
+            L = i + 1
+
+            i = x + 1
+            while i <= 700:
+                if self.canvas.itemcget(item2, "fill") != current_color:
+                    self.canvas.create_rectangle(x, y, x, y, outline=self.color)
+                    i += 1
+            R = i - 1
+            item3 = self.canvas.find_closest(i, y+1)
+            item4 = self.canvas.find_closest(i, y-1)
+            for i in range (L, R):
+                if self.canvas.itemcget(item3, "fill") != current_color:
+                    self.canvas.create_rectangle(i, y+1, i, y+1, outline=self.color)
+                if self.canvas.itemcget(item4, "fill") != current_color:
+                    self.canvas.create_rectangle(i, y-1, i, y-1, outline=self.color)
 main = Tk()
 p = Filling(main)
 main.mainloop()
