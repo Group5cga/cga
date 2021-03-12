@@ -38,7 +38,7 @@ class Filling():
         self.btnboundfill.place(x=10, y=350)
         self.btn8wayfill=Button(main, text="8 Fill", fg='black', width=8, command=self.eightway_fill_click)
         self.btn8wayfill.place(x=10, y=400)
-        self.btnscanfillflo=Button(main, text="Scanfill Flood", fg='black', width=8, font="Verdana 6", command=self.scan_fillflo_click)
+        self.btnscanfillflo=Button(main, text="Scanfill Flood", fg='black', width=8, command=self.scan_fillflo_click)
         self.btnscanfillflo.place(x=10, y=450)
         self.canvas = Canvas(self.main, bg='white', bd=5, relief=RIDGE, height=600, width=700)
         self.canvas.place(x=80, y=0)
@@ -154,17 +154,13 @@ class Filling():
         #print(hihi)
         #print(self.color)
         #print(current_color)
-        if (self.canvas.itemcget(item2, 'fill')) == current_color:
-            if (x > 0):
+        if(x > 0 and self.canvas.itemcget(item2, 'fill') == current_color):
                 self.ffillrec((x-1), y)
-        if (self.canvas.itemcget(item3, 'fill')) == current_color:
-            if (y > 0): 
+        if (y > 0 and self.canvas.itemcget(item3, 'fill') == current_color): 
                 self.ffillrec(x, (y-1))
-        if (self.canvas.itemcget(item4, 'fill')) == current_color:
-            if (x < 800): 
+        if (x < 800 and self.canvas.itemcget(item4, 'fill') == current_color): 
                 self.ffillrec((x+1), y)
-        if (self.canvas.itemcget(item5, 'fill')) == current_color:
-            if (y < 620):
+        if (y < 620 and self.canvas.itemcget(item5, 'fill') == current_color):
                 self.ffillrec(x, (y+1))
         #item = self.canvas.find_closest(event.x, event.y)
         #x = event.x
@@ -239,9 +235,46 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=SUNKEN)
-        self.canvas.bind("<Button-1>", self.eightwayfill)
+        self.canvas.bind("<Button-1>", self.eightwaypos)
         self.canvas.bind("<B1-Motion>", self.nothing)
-    
+
+    def eightwaypos(self, event):
+        global get_coords
+        get_coords = self.canvas.coords(lines[0])
+        get_coords = tuple(map(int, get_coords))
+        x = event.x
+        y = event.y
+        self.eightwayfill(x,y)
+        
+    def eightwayfill(self, x, y):
+        item = self.canvas.find_closest(x, y)
+        item2 = self.canvas.find_closest(x-1, y)
+        item3 = self.canvas.find_closest(x, y-1)
+        item4 = self.canvas.find_closest(x+1, y)
+        item5 = self.canvas.find_closest(x, y+1)
+        item6 = self.canvas.find_closest(x+1, y+1)
+        item7 = self.canvas.find_closest(x-1, y-1)
+        item8 = self.canvas.find_closest(x-1, y+1)
+        item9 = self.canvas.find_closest(x+1, y-1)
+        current_color = self.canvas.itemcget(item, "fill")
+        self.canvas.create_rectangle(x, y, x, y, outline=self.color)
+        if(x > 0 and self.canvas.itemcget(item2, 'fill') == current_color):
+            self.eightwayfill((x-1), y)
+        if (x < 800 and self.canvas.itemcget(item4, 'fill') == current_color): 
+            self.eightwayfill((x+1), y)
+        if (y > 0 and self.canvas.itemcget(item3, 'fill') == current_color): 
+            self.eightwayfill(x, y - 1)
+        if (y < 620 and self.canvas.itemcget(item5, 'fill') == current_color):
+            self.eightwayfill(x,(y + 1))
+        if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item6, 'fill') == current_color):
+            self.eightwayfill(x+1,(y + 1))
+        if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item9, 'fill') == current_color):
+            self.eightwayfill(x + 1, y - 1)
+        if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item7, 'fill') == current_color):
+            self.eightwayfill(x - 1, y - 1)
+        if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item8, 'fill') == current_color):
+            self.eightwayfill(x - 1, y + 1)
+                        
     def scan_fillflo_click(self):
         self.btnscanfillflo.configure(relief=SUNKEN)
         self.btnfill.configure(relief=RAISED)
