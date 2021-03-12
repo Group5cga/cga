@@ -176,7 +176,6 @@ class Filling():
         
                 
     def bound_fill_click(self):
-        self.btnscanfillflo.configure(relief=RAISED)
         self.btnfill.configure(relief=RAISED)
         self.btncir.configure(relief=RAISED)
         self.btnsel.configure(relief=RAISED)
@@ -184,47 +183,43 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=SUNKEN)
         self.btn8wayfill.configure(relief=RAISED)
-        self.canvas.bind("<Button-1>", self.position2)
+        self.canvas.bind("<Button-1>", self.boufindobj)
         self.canvas.bind("<B1-Motion>", self.nothing)
 
-    def position2(self,event):
+    def boufindobj(self, event):
+        global get_coords
+        get_coords = self.canvas.coords(lines[0])
+        get_coords = tuple(map(int, get_coords))
         x = event.x
         y = event.y
-        #item = self.canvas.find_closest(event.x, event.y)
-        self.boundfill(x,y)
-        
-    def boundfill(self, x, y):#Blom jalan
+        self.boundfill(x,y)   
+
+    def boundfill(self,x,y):#Blom jalan
+        item = self.canvas.find_closest(x, y)
         item2 = self.canvas.find_closest(x-1, y)
         item3 = self.canvas.find_closest(x, y-1)
         item4 = self.canvas.find_closest(x+1, y)
         item5 = self.canvas.find_closest(x, y+1)
-        bordercol = "black"
-        self.canvas.create_rectangle(x, y, x, y, outline=self.color)
-        hihihi = self.canvas.itemcget(item4, 'fill')
-        print(hihihi)
-        if (self.canvas.itemcget(item2, 'fill')) != (bordercol):
-            if (self.canvas.itemcget(item2, 'fill')) != (self.color):
-                if (x > 0): 
-                    self.boundfill((x-1), y)
-                #self.canvas.itemconfig((event.x-1, event.y), fill = self.color)
+        borderlimit = self.canvas.create_oval(get_coords, outline='black')
+        border = self.canvas.itemcget(borderlimit, 'outline')
+        print(get_coords)
+        print(border)
+        print(x)
+        print(y)
+        self.canvas.create_rectangle(x, y, x, y, fill=self.color, outline=self.color)
+        if x > 0:
+            if ((self.canvas.itemcget(item2, 'fill'))) != self.color and ((self.canvas.itemcget(item2, 'fill'))) != border:
+                self.boundfill((x-1), y)
+        if x < 700:
+            if ((self.canvas.itemcget(item4, 'fill'))) != self.color and (self.canvas.itemcget(item4, 'fill')) != border:    
+                self.boundfill((x+1), y)     
+        if y > 0:
+            if ((self.canvas.itemcget(item3, 'fill'))) != self.color and (self.canvas.itemcget(item3, 'fill')) != border: 
+                self.boundfill(x, (y-1))       
+        if y < 600:
+            if ((self.canvas.itemcget(item5, 'fill'))) != border and (self.canvas.itemcget(item5, 'fill')) != self.color:    
+                self.boundfill(x, (y+1))
                 
-        if (self.canvas.itemcget(item4, 'fill')) != (bordercol) : 
-            if (self.canvas.itemcget(item4, 'fill')) != (self.color):
-                if (y > 0): 
-                    self.boundfill((x+1), y)
-                #self.canvas.itemconfig((event.x+1, event.y), fill = self.color)
-                
-        if (self.canvas.itemcget(item3, 'fill')) != (bordercol) :
-            if (self.canvas.itemcget(item3, 'fill')) != (self.color):
-                if (x < 800): 
-                    self.boundfill(x, (y-1))
-                #self.canvas.itemconfig((event.x, event.y-1), fill = self.color)
-                
-        if (self.canvas.itemcget(item5, 'fill')) != (bordercol) :
-            if (self.canvas.itemcget(item5, 'fill')) != (self.color):
-                if (y < 620): 
-                    self.boundfill(x, (y+1))
-                #self.canvas.itemconfig((event.x, event.y+1), fill = self.color)
                 
     def eightway_fill_click(self):
         self.btnscanfillflo.configure(relief=RAISED)
