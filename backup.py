@@ -32,6 +32,8 @@ class Filling():
         self.btncir.place(x=10, y=200)
         self.btnfill=Button(main, text="FILL", fg='black', width=8, command=self.clickfillrec)
         self.btnfill.place(x=10, y=250)
+        self.btnfill=Button(main, text="FILL STACK", fg='black', width=8, command=self.clickfillstack)
+        self.btnfill.place(x=10, y=250)
         self.btnclear=Button(main, text="COLOR", fg='black', width=8, command=self.color_choice)
         self.btnclear.place(x=10, y=300)
         self.btnboundfill=Button(main, text="Bound Fill", fg='black', width=8, command=self.bound_fill_click)
@@ -174,7 +176,47 @@ class Filling():
         #if(x < 0 or x >= self.canvas.winfo_screenwidth() or y < 0 or y >= self.canvas.winfo_screenheight())== current_color:
         #    return
         
-                
+    def clickfillstack(self):
+        self.btnscanfillflo.configure(relief=RAISED)
+        self.btnfill.configure(relief=SUNKEN)
+        self.btncir.configure(relief=RAISED)
+        self.btnsel.configure(relief=RAISED)
+        self.btnline.configure(relief=RAISED)
+        self.btnclear.configure(relief=RAISED)
+        self.btnboundfill.configure(relief=RAISED)
+        self.btn8wayfill.configure(relief=RAISED)
+        self.canvas.bind("<Button-1>", self.floodstackpos)
+        self.canvas.bind("<B1-Motion>", self.nothing)      
+
+    def floodstackpos(self, event):
+        global get_coords1
+        get_coords1 = self.canvas.coords(lines[0])
+        get_coords1 = tuple(map(int, get_coords))
+        x = event.x
+        y = event.y
+        self.floodstack(x,y) 
+
+    def floodstack(self, x, y):
+        item = self.canvas.find_closest(x, y)
+        item2 = self.canvas.find_closest(x-1, y)
+        item3 = self.canvas.find_closest(x, y-1)
+        item4 = self.canvas.find_closest(x+1, y)
+        item5 = self.canvas.find_closest(x, y+1)
+        current_color = self.canvas.itemcget(item, "fill")
+        if current_color != self.color:
+            stack.append((x,y))
+            while stack != []:
+                stack.pop((x,y))
+                self.canvas.create_rectangle(x, y, x, y, outline=self.color)
+                if(x > 0 and self.canvas.itemcget(item2, 'fill') == current_color):
+                    self.floodstack((x-1), y)
+                if (y > 0 and self.canvas.itemcget(item3, 'fill') == current_color): 
+                    self.floodstack(x, (y-1))
+                if (x < 800 and self.canvas.itemcget(item4, 'fill') == current_color): 
+                    self.floodstack((x+1), y)
+                if (y < 620 and self.canvas.itemcget(item5, 'fill') == current_color):
+                    self.floodstack(x, (y+1))
+    
     def bound_fill_click(self):
         self.btnfill.configure(relief=RAISED)
         self.btncir.configure(relief=RAISED)
