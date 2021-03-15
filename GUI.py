@@ -4,9 +4,9 @@
 # boundary fill recursive done
 # boundary fill stack
 # eight way fill done
-# scanline region fill 
+# scanline region fill done
 # scanline region fill stack
-# region fill stack
+# region fill stack done
 #
 
 from tkinter import *
