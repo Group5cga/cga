@@ -207,7 +207,7 @@ class Filling():
             stack.append((x,y))
             #print(stack)
             while stack != []:
-                stack.pop()
+                x,y = stack.pop()
                 self.canvas.create_rectangle(x, y, x, y, outline=self.color)
                 #print("stack while", stack)
                 if(self.canvas.itemcget(item2, 'fill') == current_color):
