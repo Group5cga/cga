@@ -25,25 +25,25 @@ class Filling():
         main.config(menu=menubar)
 
         self.btnsel=Button(main, text="SELECT", fg='black', width=8, command=self.select)
-        self.btnsel.place(x=10, y=100)
+        self.btnsel.place(x=10, y=60)
         self.btnline=Button(main, text="LINE", fg='black', width=8, command=self.line)
-        self.btnline.place(x=10, y=150)
+        self.btnline.place(x=10, y=110)
         self.btncir=Button(main, text="CIRCLE", fg='black', width=8, command=self.circle)
-        self.btncir.place(x=10, y=200)
+        self.btncir.place(x=10, y=160)
         self.btnfill=Button(main, text="FILL", fg='black', width=8, command=self.clickfillrec)
-        self.btnfill.place(x=10, y=250)
+        self.btnfill.place(x=10, y=210)
         self.btnfillstack=Button(main, text="FILL STACK", fg='black', width=8, command=self.clickfillstack)
-        self.btnfillstack.place(x=10, y=300)
+        self.btnfillstack.place(x=10, y=260)
         self.btnclear=Button(main, text="COLOR", fg='black', width=8, command=self.color_choice)
-        self.btnclear.place(x=10, y=350)
+        self.btnclear.place(x=10, y=310)
         self.btnboundfill=Button(main, text="Bound Fill", fg='black', width=8, command=self.bound_fill_click)
-        self.btnboundfill.place(x=10, y=400)
+        self.btnboundfill.place(x=10, y=360)
         self.btnboundstack=Button(main, text="Bound Stack", fg='black', width=8, command=self.bound_stack_click)
-        self.btnboundstack.place(x=10, y=450)
+        self.btnboundstack.place(x=10, y=410)
         self.btn8wayfill=Button(main, text="8 Fill", fg='black', width=8, command=self.eightway_fill_click)
-        self.btn8wayfill.place(x=10, y=500)
+        self.btn8wayfill.place(x=10, y=460)
         self.btnscanfillflo=Button(main, text="Scanfill Flood", fg='black', width=8, command=self.scan_fillflo_click)
-        self.btnscanfillflo.place(x=10, y=550)
+        self.btnscanfillflo.place(x=10, y=510)
         self.canvas = Canvas(self.main, bg='white', bd=5, relief=RIDGE, height=600, width=700)
         self.canvas.place(x=80, y=0)
         self.canvas.create_rectangle(0, 0, 750, 600, fill='white', outline='white')
@@ -253,21 +253,15 @@ class Filling():
         item5 = self.canvas.find_closest(x, y+1)
         borderlimit = self.canvas.create_oval(get_coords, outline='black')
         border = self.canvas.itemcget(borderlimit, 'outline')
-        print(get_coords)
-        print(border)
-        print(x)
-        print(y)
         self.canvas.create_rectangle(x, y, x, y, fill=self.color, outline=self.color)
-        if x > 0:
+        if (x >= get_coords[0] and x <= get_coords[2]):
             if ((self.canvas.itemcget(item2, 'fill'))) != self.color and ((self.canvas.itemcget(item2, 'fill'))) != border:
                 self.boundfill((x-1), y)
-        if x < 700:
             if ((self.canvas.itemcget(item4, 'fill'))) != self.color and (self.canvas.itemcget(item4, 'fill')) != border:    
                 self.boundfill((x+1), y)     
-        if y > 0:
+        if (y >= get_coords[1] and y <= get_coords[3]):
             if ((self.canvas.itemcget(item3, 'fill'))) != self.color and (self.canvas.itemcget(item3, 'fill')) != border: 
-                self.boundfill(x, (y-1))       
-        if y < 600:
+                self.boundfill(x, (y-1))
             if ((self.canvas.itemcget(item5, 'fill'))) != border and (self.canvas.itemcget(item5, 'fill')) != self.color:    
                 self.boundfill(x, (y+1))
 
