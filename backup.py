@@ -253,21 +253,15 @@ class Filling():
         item5 = self.canvas.find_closest(x, y+1)
         borderlimit = self.canvas.create_oval(get_coords, outline='black')
         border = self.canvas.itemcget(borderlimit, 'outline')
-        print(get_coords)
-        print(border)
-        print(x)
-        print(y)
         self.canvas.create_rectangle(x, y, x, y, fill=self.color, outline=self.color)
-        if x > 0:
+        if (x >= get_coords[0] and x <= get_coords[2]):
             if ((self.canvas.itemcget(item2, 'fill'))) != self.color and ((self.canvas.itemcget(item2, 'fill'))) != border:
                 self.boundfill((x-1), y)
-        if x < 700:
             if ((self.canvas.itemcget(item4, 'fill'))) != self.color and (self.canvas.itemcget(item4, 'fill')) != border:    
                 self.boundfill((x+1), y)     
-        if y > 0:
+        if (y >= get_coords[1] and y <= get_coords[3]):
             if ((self.canvas.itemcget(item3, 'fill'))) != self.color and (self.canvas.itemcget(item3, 'fill')) != border: 
-                self.boundfill(x, (y-1))       
-        if y < 600:
+                self.boundfill(x, (y-1))
             if ((self.canvas.itemcget(item5, 'fill'))) != border and (self.canvas.itemcget(item5, 'fill')) != self.color:    
                 self.boundfill(x, (y+1))
 
