@@ -50,13 +50,6 @@ class Filling():
         self.canvas.place(x=80, y=0)
         self.canvas.create_rectangle(0, 0, 750, 600, fill='white', outline='white')
 
-    def locate_xy(self, event):
-        global current_x, current_y, close, current_color
-        
-        current_x, current_y = event.x, event.y
-        current_x = x
-        current_y = y
-
     def select(self):
         self.btnscanfillflo.configure(relief=RAISED)
         self.btnfill.configure(relief=RAISED)
@@ -351,11 +344,11 @@ class Filling():
         item9 = self.canvas.find_closest(x+1, y-1)
         current_color = self.canvas.itemcget(item, "fill")
         self.canvas.create_rectangle(x, y, x, y, outline=self.color)
-        if(x > 0 and self.canvas.itemcget(item2, 'fill') == current_color):
+        if(x >= 0 and self.canvas.itemcget(item2, 'fill') == current_color):
             self.eightwayfill((x-1), y)
         if (x < 800 and self.canvas.itemcget(item4, 'fill') == current_color): 
             self.eightwayfill((x+1), y)
-        if (y > 0 and self.canvas.itemcget(item3, 'fill') == current_color): 
+        if (y >= 0 and self.canvas.itemcget(item3, 'fill') == current_color): 
             self.eightwayfill(x, y - 1)
         if (y < 620 and self.canvas.itemcget(item5, 'fill') == current_color):
             self.eightwayfill(x,(y + 1))
@@ -403,22 +396,21 @@ class Filling():
         self.canvas.create_rectangle(x, y, x, y, outline=self.color)
         borderlimit = self.canvas.create_oval(get_coords, outline='black')
         border = self.canvas.itemcget(borderlimit, 'outline')
-
-        if (x > 0 and ((self.canvas.itemcget(item2, 'fill')) != self.color and (self.canvas.itemcget(item2, 'fill'))) != border):
+        if (x >= 0 and (self.canvas.itemcget(item2, 'fill')) != self.color and (self.canvas.itemcget(item2, 'fill')) != border):
             self.eightwaybound((x-1), y)
-        if (x < 800 and ((self.canvas.itemcget(item4, 'fill')) != self.color and (self.canvas.itemcget(item4, 'fill'))) != border): 
+        if (x < 800 and (self.canvas.itemcget(item4, 'fill')) != self.color and (self.canvas.itemcget(item4, 'fill')) != border): 
             self.eightwaybound((x+1), y)
-        if (y > 0 and ((self.canvas.itemcget(item3, 'fill')) != self.color and (self.canvas.itemcget(item3, 'fill'))) != border): 
+        if (y >= 0 and (self.canvas.itemcget(item3, 'fill')) != self.color and (self.canvas.itemcget(item3, 'fill')) != border): 
             self.eightwaybound(x, y - 1)
-        if (y < 620 and ((self.canvas.itemcget(item5, 'fill')) != self.color and (self.canvas.itemcget(item5, 'fill'))) != border):
+        if (y < 620 and (self.canvas.itemcget(item5, 'fill')) != self.color and (self.canvas.itemcget(item5, 'fill')) != border):
             self.eightwaybound(x,(y + 1))
-        if (x >= 0 and x <800 and y> 0 and y < 620 and ((self.canvas.itemcget(item6, 'fill')) != self.color and (self.canvas.itemcget(item6, 'fill'))) != border):
+        if (x >= 0 and x <800 and y >= 0 and y < 620 and (self.canvas.itemcget(item6, 'fill')) != self.color and (self.canvas.itemcget(item6, 'fill')) != border):
             self.eightwaybound(x+1,(y + 1))
-        if (x >= 0 and x <800 and y> 0 and y < 620 and ((self.canvas.itemcget(item9, 'fill')) != self.color and (self.canvas.itemcget(item9, 'fill'))) != border):
+        if (x >= 0 and x <800 and y >= 0 and y < 620 and (self.canvas.itemcget(item9, 'fill')) != self.color and (self.canvas.itemcget(item9, 'fill')) != border):
             self.eightwaybound(x + 1, y - 1)
-        if (x >= 0 and x <800 and y> 0 and y < 620 and ((self.canvas.itemcget(item7, 'fill')) != self.color and (self.canvas.itemcget(item7, 'fill'))) != border):
+        if (x >= 0 and x <800 and y >= 0 and y < 620 and (self.canvas.itemcget(item7, 'fill')) != self.color and (self.canvas.itemcget(item7, 'fill')) != border):
             self.eightwaybound(x - 1, y - 1)
-        if (x >= 0 and x <800 and y> 0 and y < 620 and ((self.canvas.itemcget(item8, 'fill')) != self.color and (self.canvas.itemcget(item8, 'fill'))) != border):
+        if (x >= 0 and x <800 and y >= 0 and y < 620 and (self.canvas.itemcget(item8, 'fill')) != self.color and (self.canvas.itemcget(item8, 'fill')) != border):
             self.eightwaybound(x - 1, y + 1)
 
     def scan_fillflo_click(self):
@@ -452,7 +444,6 @@ class Filling():
                     self.canvas.create_rectangle(x, y, x, y, outline=self.color)
                     i -= 1
             L = i + 1
-
             i = x + 1
             while i <= 700:
                 if self.canvas.itemcget(item2, "fill") != current_color:
