@@ -234,32 +234,43 @@ class Filling():
         self.canvas.bind("<B1-Motion>", self.nothing)
 
     def boufindobj(self, event):
-        global get_coords
+        global get_coords, borderlimit, border
         get_coords = self.canvas.coords(lines[0])
         get_coords = tuple(map(int, get_coords))
         x = event.x
         y = event.y
+        borderlimit = self.canvas.create_oval(get_coords, outline='black')
+        border = self.canvas.itemcget(borderlimit, 'outline')
         self.boundfill(x,y)   
 
     def boundfill(self,x,y):#Blom jalan
         item = self.canvas.find_closest(x, y)
-        item2 = self.canvas.find_closest(x-1, y)
-        item3 = self.canvas.find_closest(x, y-1)
-        item4 = self.canvas.find_closest(x+1, y)
-        item5 = self.canvas.find_closest(x, y+1)
-        borderlimit = self.canvas.create_oval(get_coords, outline='black')
-        border = self.canvas.itemcget(borderlimit, 'outline')
+        item2 = self.canvas.itemcget((self.canvas.find_closest(x-1, y)), 'fill')
+        item3 = self.canvas.itemcget((self.canvas.find_closest(x, y-1)), 'fill')
+        item4 = self.canvas.itemcget((self.canvas.find_closest(x+1, y)), 'fill')
+        item5 = self.canvas.itemcget((self.canvas.find_closest(x, y+1)), 'fill')
+        current_color = self.canvas.itemcget(item, 'fill')
         self.canvas.create_rectangle(x, y, x, y, fill=self.color, outline=self.color)
+        #print(self.canvas.itemcget(item, 'fill'))
+        #print(item2)
+        #print(item3)
+        #print(item4)
+        #print(item5)
+        #print(border)
         if (x >= get_coords[0] and x <= get_coords[2]):
-            if ((self.canvas.itemcget(item2, 'fill'))) != self.color and ((self.canvas.itemcget(item2, 'fill'))) != border:
-                self.boundfill((x-1), y)
-            if ((self.canvas.itemcget(item4, 'fill'))) != self.color and (self.canvas.itemcget(item4, 'fill')) != border:    
-                self.boundfill((x+1), y)     
+            if item4 != border:
+                if item4 != self.color:  
+                    self.boundfill((x+1), y)  
+            if item2 != border:
+                if item2 != self.color:        
+                    self.boundfill((x-1), y)
         if (y >= get_coords[1] and y <= get_coords[3]):
-            if ((self.canvas.itemcget(item3, 'fill'))) != self.color and (self.canvas.itemcget(item3, 'fill')) != border: 
-                self.boundfill(x, (y-1))
-            if ((self.canvas.itemcget(item5, 'fill'))) != border and (self.canvas.itemcget(item5, 'fill')) != self.color:    
-                self.boundfill(x, (y+1))
+            if item3 != border:
+                if item3 != self.color: 
+                    self.boundfill(x, (y-1))
+            if item5 != border:
+                if item5 != self.color:    
+                    self.boundfill(x, (y+1))
 
     def bound_stack_click(self):
         self.btnscanfillflo.configure(relief=RAISED)
