@@ -137,6 +137,9 @@ class Filling():
         self.canvas.bind("<B1-Motion>", self.nothing)
 
     def position(self,event):
+        global get_coords
+        get_coords = self.canvas.coords(lines[0])
+        get_coords = tuple(map(int, get_coords))
         x = event.x
         y = event.y
         #item = self.canvas.find_closest(event.x, event.y)
@@ -159,9 +162,9 @@ class Filling():
         #print(hihi)
         #print(self.color)
         #print(current_color)
-        if(x > 0 and self.canvas.itemcget(item2, 'fill') == current_color):
+        if(x >= 0 and self.canvas.itemcget(item2, 'fill') == current_color):
                 self.ffillrec((x-1), y)
-        if (y > 0 and self.canvas.itemcget(item3, 'fill') == current_color): 
+        if (y >= 0 and self.canvas.itemcget(item3, 'fill') == current_color): 
                 self.ffillrec(x, (y-1))
         if (x < 800 and self.canvas.itemcget(item4, 'fill') == current_color): 
                 self.ffillrec((x+1), y)
@@ -201,10 +204,6 @@ class Filling():
         self.floodstack(x,y) 
 
     def floodstack(self, x, y):
-        item2 = self.canvas.find_closest(x-1, y)
-        item3 = self.canvas.find_closest(x, y-1)
-        item4 = self.canvas.find_closest(x+1, y)
-        item5 = self.canvas.find_closest(x, y+1)
         #print((self.canvas.itemcget(item2, 'fill')))
         #print(current_color)
         if current_color != self.color:
@@ -212,20 +211,24 @@ class Filling():
             #print(stack)
             while stack != []:
                 x,y = stack.pop()
+                item2 = self.canvas.find_closest(x-1, y)
+                item3 = self.canvas.find_closest(x, y-1)
+                item4 = self.canvas.find_closest(x+1, y)
+                item5 = self.canvas.find_closest(x, y+1)
                 self.canvas.create_rectangle(x, y, x, y, outline=self.color)
-                #print("stack while", stack)
+                print("stack while", stack)
                 if(x >= 0 and self.canvas.itemcget(item2, 'fill') == current_color):
                     stack.append(((x-1), y))
                     #print("stack 1", stack)
                 if (y >= 0 and self.canvas.itemcget(item3, 'fill') == current_color): 
                     stack.append((x, (y-1)))
-                    #print("stack 2", stack)
+                    #print("stack 2")
                 if (x < 800 and self.canvas.itemcget(item4, 'fill') == current_color): 
                     stack.append(((x+1), y))
-                    #print("stack 3", stack)
+                    #print("stack 3")
                 if (y < 620 and self.canvas.itemcget(item5, 'fill') == current_color):
                     stack.append((x, (y+1)))
-                    #print("stack 4", stack)
+                    #print("stack 4")
 
     
     def bound_fill_click(self):
@@ -292,7 +295,9 @@ class Filling():
         self.canvas.bind("<B1-Motion>", self.nothing)   
     
     def boundstackpos(self,event):
-        global current_color
+        global current_color, get_coords, borderlimit, border
+        get_coords = self.canvas.coords(lines[0])
+        get_coords = tuple(map(int, get_coords))
         x = event.x
         y = event.y
         item = self.canvas.find_closest(x, y)
@@ -300,20 +305,19 @@ class Filling():
         self.boundstack(x,y) 
 
     def boundstack(self,x,y):
-        item = self.canvas.find_closest(x, y)
-        item2 = self.canvas.find_closest(x-1, y)
-        item3 = self.canvas.find_closest(x, y-1)
-        item4 = self.canvas.find_closest(x+1, y)
-        item5 = self.canvas.find_closest(x, y+1)
         borderlimit = self.canvas.create_oval(get_coords, outline='black')
         border = self.canvas.itemcget(borderlimit, 'outline')
         self.canvas.create_rectangle(x, y, x, y, fill=self.color, outline=self.color)
-
         if current_color != self.color:
             stack.append((x,y))
             #print(stack)
             while stack != []:
                 x,y = stack.pop()
+                item = self.canvas.find_closest(x, y)
+                item2 = self.canvas.find_closest(x-1, y)
+                item3 = self.canvas.find_closest(x, y-1)
+                item4 = self.canvas.find_closest(x+1, y)
+                item5 = self.canvas.find_closest(x, y+1)
                 self.canvas.create_rectangle(x, y, x, y, outline=self.color)
                 #print("stack while", stack)
                 if ((self.canvas.itemcget(item2, 'fill'))) != self.color and ((self.canvas.itemcget(item2, 'fill'))) != border:
