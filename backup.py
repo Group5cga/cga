@@ -444,34 +444,36 @@ class Filling():
         self.canvas.bind("<B1-Motion>", self.nothing)
     
     def scanflopos(self,event):
-        global get_coords
+        global get_coords, current_color
         get_coords = self.canvas.coords(lines[0])
         get_coords = tuple(map(int, get_coords))
         x = event.x
         y = event.y
+        item = self.canvas.find_closest(x, y)
+        current_color = self.canvas.itemcget(item, "fill")
         self.scanfillflo(x,y)
 
     def scanfillflo(self, x, y): #result = not responding wkwkwk
         i = x
-        item = self.canvas.find_closest(x, y)
-        current_color = self.canvas.itemcget(item, "fill")
         if current_color != self.color:
             while i >= 0:
                 item2 = self.canvas.find_closest(i, y)
                 if self.canvas.itemcget(item2, "fill") == current_color:
                     self.canvas.create_rectangle(x, y, x, y, outline=self.color)
+                    i -= 1
                 else:
                     break
-                i -= 1
+                print("while1", i)
             L = i + 1
             i = x + 1
             while i <= 700:
                 item2 = self.canvas.find_closest(i, y)
                 if self.canvas.itemcget(item2, "fill") == current_color:
                     self.canvas.create_rectangle(x, y, x, y, outline=self.color)
+                    i += 1
                 else:
                     break
-                i += 1
+                print("while2", i)
             R = i - 1
             for i in range (L, R):
                 item3 = self.canvas.find_closest(i, y+1)
