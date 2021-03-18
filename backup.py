@@ -103,8 +103,6 @@ class Filling():
         
     def clear(self):
         self.canvas.delete("all")
-        self.rect = None
-        self.tick = 0
         coords = {"x1":0,"y1":0,"x2":0,"y2":0}
         lines = []
         DEFAULT_COLOR = 'black'
