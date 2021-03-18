@@ -465,6 +465,7 @@ class Filling():
                     break
                 print("while1", i)
             L = i + 1
+            #print("while2R", L)
             i = x + 1
             while i <= 700:
                 item2 = self.canvas.find_closest(i, y)
@@ -475,13 +476,14 @@ class Filling():
                     break
                 print("while2", i)
             R = i - 1
+            #print("while2R", R)
             for i in range (L, R):
                 item3 = self.canvas.find_closest(i, y+1)
                 item4 = self.canvas.find_closest(i, y-1)
                 if self.canvas.itemcget(item3, "fill") == current_color:
-                    self.scanfillflo(i,y)
+                    self.scanfillflo(i,(y+1))
                 if self.canvas.itemcget(item4, "fill") == current_color:
-                    self.scanfillflo(i,y)
+                    self.scanfillflo(i,(y-1))
 main = Tk()
 p = Filling(main)
 main.mainloop()
