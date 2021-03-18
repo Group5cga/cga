@@ -105,6 +105,12 @@ class Filling():
         self.canvas.delete("all")
         self.rect = None
         self.tick = 0
+        coords = {"x1":0,"y1":0,"x2":0,"y2":0}
+        lines = []
+        DEFAULT_COLOR = 'black'
+        x = 0
+        y = 0
+        stack = []
         
     def color_choice(self):
         self.btnscanfillflo.configure(relief=RAISED)
@@ -208,10 +214,10 @@ class Filling():
                 x,y = stack.pop()
                 self.canvas.create_rectangle(x, y, x, y, outline=self.color)
                 #print("stack while", stack)
-                if(x > 0 and self.canvas.itemcget(item2, 'fill') == current_color):
+                if(x >= 0 and self.canvas.itemcget(item2, 'fill') == current_color):
                     stack.append(((x-1), y))
                     #print("stack 1", stack)
-                if (y > 0 and self.canvas.itemcget(item3, 'fill') == current_color): 
+                if (y >= 0 and self.canvas.itemcget(item3, 'fill') == current_color): 
                     stack.append((x, (y-1)))
                     #print("stack 2", stack)
                 if (x < 800 and self.canvas.itemcget(item4, 'fill') == current_color): 
