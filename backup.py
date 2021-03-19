@@ -504,20 +504,9 @@ class Filling():
         current_color = self.canvas.itemcget(item, "fill")
         self.scanfillflo(x,y)
 
-    def scanfillflo(self, x, y):
+    def scanfillflo(self, x, y): #result = not responding wkwkwk
+        i = x
         if current_color != self.color:
-            i = x
-            while i <= 700:
-                item2 = self.canvas.find_closest(i, y)
-                if self.canvas.itemcget(item2, "fill") == current_color:
-                    self.canvas.create_rectangle(x, y, x, y, outline=self.color)
-                    i += 1
-                else:
-                    break
-
-                #print("while2", i)
-            R = i - 1
-            i = x - 1
             while i >= 0:
                 item2 = self.canvas.find_closest(i, y)
                 if self.canvas.itemcget(item2, "fill") == current_color:
@@ -525,9 +514,20 @@ class Filling():
                     i -= 1
                 else:
                     break
-                #print("while1", i)
+                print("while1", i)
             L = i + 1
+            #print("while2R", L)
             i = x + 1
+            while i <= 700:
+                item2 = self.canvas.find_closest(i, y)
+                if self.canvas.itemcget(item2, "fill") == current_color:
+                    self.canvas.create_rectangle(x, y, x, y, outline=self.color)
+                    i += 1
+                else:
+                    break
+                print("while2", i)
+            R = i - 1
+            #print("while2R", R)
             for i in range (L, R):
                 item3 = self.canvas.find_closest(i, y+1)
                 item4 = self.canvas.find_closest(i, y-1)
