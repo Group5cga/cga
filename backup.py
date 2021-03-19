@@ -56,13 +56,13 @@ class Filling():
         self.btn8waystackfill=Button(main, text="8 Fill Stack", fg='black', width=8, command=self.eightstack_fill_click)
         self.btn8waystackfill.place(x=100, y=380)
         self.btn8wayboundary=Button(main, text="8 Fill Bound", fg='black', width=8, command=self.eightway_bound_click)
-        self.btn8wayboundary.place(x=10, y=380)
+        self.btn8wayboundary.place(x=10, y=420)
 
-        scanfloodfill = Label(main, text = "Scanline Flood Fill").place(x = 10, y = 420) 
-        self.btnscanfillflo=Button(main, text="Scanfill Flood", fg='black', width=8, command=self.scan_fillflo_click)
-        self.btnscanfillflo.place(x=10, y=450)
-        self.btnscanflostack=Button(main, text="scanflo stack", fg='black', width=8, command=self.scanflostack_click)
-        self.btnscanflostack.place(x=100, y=450)
+        scanfloodfill = Label(main, text = "Scanline").place(x = 10, y = 460) 
+        self.btnscanfillflo=Button(main, text="Scanfill Recursive", fg='black', width=8, command=self.scan_fillflo_click)
+        self.btnscanfillflo.place(x=10, y=490)
+        self.btnscanflostack=Button(main, text="Scanfill Stack", fg='black', width=8, command=self.scanflostack_click)
+        self.btnscanflostack.place(x=100, y=490)
 
         self.canvas = Canvas(self.main, bg='white', bd=5, relief=RIDGE, height=600, width=600)
         self.canvas.place(x=180, y=0)
@@ -353,9 +353,7 @@ class Filling():
         self.canvas.bind("<B1-Motion>", self.nothing)   
     
     def boundstackpos(self,event):
-        global current_color, get_coords, borderlimit, border
-        get_coords = self.canvas.coords(lines[0])
-        get_coords = tuple(map(int, get_coords))
+        global current_color
         x = event.x
         y = event.y
         item = self.canvas.find_closest(x, y)
@@ -365,26 +363,27 @@ class Filling():
     def boundstack(self,x,y):
         stack.append((x,y))
         #print(stack)
-        while stack != []:
-            x,y = stack.pop()
-            self.canvas.create_rectangle(x, y, x, y, outline=self.color)
-            item2 = self.canvas.find_closest(x-1, y)
-            item3 = self.canvas.find_closest(x, y-1)
-            item4 = self.canvas.find_closest(x+1, y)
-            item5 = self.canvas.find_closest(x, y+1)
-            print("stack while", stack)
-            if ((self.canvas.itemcget(item2, 'outline')) != self.outline and (self.canvas.itemcget(item2, 'fill')) != self.color):
-                stack.append(((x-1), y))
-                 #print("stack 1", stack)
-            if ((self.canvas.itemcget(item4, 'outline')) != self.outline and (self.canvas.itemcget(item4, 'fill')) != self.color):
-                stack.append((x, (y-1)))
-                #print("stack 2", stack)
-            if ((self.canvas.itemcget(item3, 'outline')) != self.outline and (self.canvas.itemcget(item3, 'fill')) != self.color): 
-                stack.append(((x+1), y))
-                #print("stack 3", stack)
-            if ((self.canvas.itemcget(item5, 'outline')) != self.outline and (self.canvas.itemcget(item5, 'fill')) != self.color):
-                stack.append((x, (y+1)))
-                #print("stack 4", stack) 
+        if current_color != self.color:
+            while stack != []:
+                x,y = stack.pop()
+                self.canvas.create_rectangle(x, y, x, y, outline=self.color)
+                item2 = self.canvas.find_closest(x-1, y)
+                item3 = self.canvas.find_closest(x, y-1)
+                item4 = self.canvas.find_closest(x+1, y)
+                item5 = self.canvas.find_closest(x, y+1)
+                print("stack while", stack)
+                if (x >= 0 and (self.canvas.itemcget(item2, 'outline')) != self.outline and (self.canvas.itemcget(item2, 'fill')) != self.color):
+                    stack.append(((x-1), y))
+                    #print("stack 1", stack)
+                if (y >= 0 and (self.canvas.itemcget(item4, 'outline')) != self.outline and (self.canvas.itemcget(item4, 'fill')) != self.color):
+                    stack.append((x, (y-1)))
+                    #print("stack 2", stack)
+                if (x < 800 and (self.canvas.itemcget(item3, 'outline')) != self.outline and (self.canvas.itemcget(item3, 'fill')) != self.color): 
+                    stack.append(((x+1), y))
+                    #print("stack 3", stack)
+                if (y < 620 and (self.canvas.itemcget(item5, 'outline')) != self.outline and (self.canvas.itemcget(item5, 'fill')) != self.color):
+                    stack.append((x, (y+1)))
+                    #print("stack 4", stack)    
 
     def eightway_fill_click(self):
         self.btnscanfillflo.configure(relief=RAISED)
