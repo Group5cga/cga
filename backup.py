@@ -59,10 +59,14 @@ class Filling():
         self.btn8wayboundary.place(x=10, y=420)
 
         scanfloodfill = Label(main, text = "Scanline").place(x = 10, y = 460) 
-        self.btnscanfillflo=Button(main, text="Scanfill Recursive", fg='black', width=8, command=self.scan_fillflo_click)
+        self.btnscanfillflo=Button(main, text="ScanFlood Recursive", fg='black', width=8, command=self.scan_fillflo_click)
         self.btnscanfillflo.place(x=10, y=490)
-        self.btnscanflostack=Button(main, text="Scanfill Stack", fg='black', width=8, command=self.scanflostack_click)
+        self.btnscanflostack=Button(main, text="ScanFlood Stack", fg='black', width=8, command=self.scanflostack_click)
         self.btnscanflostack.place(x=100, y=490)
+        self.btnscanflostack=Button(main, text="ScanBound Recursive", fg='black', width=8, command=self.scanboundrec_click)
+        self.btnscanflostack.place(x=10, y=530)
+        self.btnscanflostack=Button(main, text="ScanBound Stack", fg='black', width=8, command=self.scanboundstack_click)
+        self.btnscanflostack.place(x=100, y=530)
 
         self.canvas = Canvas(self.main, bg='white', bd=5, relief=RIDGE, height=600, width=600)
         self.canvas.place(x=180, y=0)
@@ -322,16 +326,16 @@ class Filling():
         item4 = self.canvas.find_closest(x+1, y)
         item5 = self.canvas.find_closest(x, y+1)
         self.canvas.create_rectangle(x, y, x, y,outline=self.color)
-        if ((self.canvas.itemcget(item2, 'fill') != self.color) and (self.canvas.itemcget(item2, 'outline') != self.outline)):
+        if x >= 0 and ((self.canvas.itemcget(item2, 'fill') != self.color) and (self.canvas.itemcget(item2, 'outline') != self.outline)):
                 self.boundfill((x-1), y)
                 #print(x,y,"if 2")
-        if ((self.canvas.itemcget(item3, 'fill') != self.color) and (self.canvas.itemcget(item3, 'outline') != self.outline)): 
+        if y >= 0 and ((self.canvas.itemcget(item3, 'fill') != self.color) and (self.canvas.itemcget(item3, 'outline') != self.outline)): 
                 self.boundfill(x, (y-1))
                 #print(x,y,"if 3")
-        if((self.canvas.itemcget(item4, 'fill')  != self.color) and (self.canvas.itemcget(item4, 'outline') != self.outline)):
+        if x < 800 and ((self.canvas.itemcget(item4, 'fill')  != self.color) and (self.canvas.itemcget(item4, 'outline') != self.outline)):
                 self.boundfill((x+1), y)
                 #print(x,y,"if 1")
-        if ((self.canvas.itemcget(item5, 'fill') != self.color) and (self.canvas.itemcget(item5, 'outline') != self.outline)):    
+        if y < 620 and ((self.canvas.itemcget(item5, 'fill') != self.color) and (self.canvas.itemcget(item5, 'outline') != self.outline)):    
                 self.boundfill(x, (y+1))
                 #print(x,y,"if 4")
 
@@ -670,7 +674,121 @@ class Filling():
                     else :
                         break
                     i += 1
-                    
+
+    def scanboundrec_click(self):
+        self.btnscanfillflo.configure(relief=RAISED)
+        self.btn8wayboundary.configure(relief=RAISED)
+        self.btnboundstack.configure(relief=RAISED)
+        self.btnfillstack.configure(relief=RAISED)
+        self.btnscanflostack.configure(relief=SUNKEN)
+        self.btnfill.configure(relief=RAISED)
+        self.btncir.configure(relief=RAISED)
+        self.btnsel.configure(relief=RAISED)
+        self.btnline.configure(relief=RAISED)
+        self.btnclear.configure(relief=RAISED)
+        self.btnboundfill.configure(relief=RAISED)
+        self.btn8wayfill.configure(relief=RAISED)
+        self.btnoutline.configure(relief=RAISED)
+        self.canvas.bind("<Button-1>", self.scanboundpos)
+        self.canvas.bind("<B1-Motion>", self.nothing)                   
+
+    def scanboundpos(self,event):
+        x = event.x
+        y = event.y
+        self.scanboundrec(x,y)
+    
+    def scanboundrec(self,x,y):
+        i = x
+        if self.outline != self.color:
+            while i >= 0:
+                item2 = self.canvas.find_closest(i, y)
+                if self.canvas.itemcget(item2, "outline") != self.outline:
+                    self.canvas.create_rectangle(x, y, x, y, outline=self.color)
+                    i -= 1
+                else:
+                    break
+                print("while1", i)
+            L = i + 1
+            #print("while2R", L)
+            i = x + 1
+            while i <= 700:
+                item2 = self.canvas.find_closest(i, y)
+                if self.canvas.itemcget(item2, "outline") != self.outline:
+                    self.canvas.create_rectangle(x, y, x, y, outline=self.color)
+                    i += 1
+                else:
+                    break
+                print("while2", i)
+            R = i - 1
+            #print("while2R", R)
+            for i in range (L, R):
+                item3 = self.canvas.find_closest(i, y+1)
+                item4 = self.canvas.find_closest(i, y-1)
+                if self.canvas.itemcget(item3, "outline") != self.outline:
+                    self.scanboundrec(i,(y+1))
+                if self.canvas.itemcget(item4, "outline") != self.outline:
+                    self.scanboundrec(i,(y-1))
+
+    def scanboundstack_click(self):
+        self.btnscanfillflo.configure(relief=RAISED)
+        self.btn8wayboundary.configure(relief=RAISED)
+        self.btnboundstack.configure(relief=RAISED)
+        self.btnfillstack.configure(relief=RAISED)
+        self.btnscanflostack.configure(relief=SUNKEN)
+        self.btnfill.configure(relief=RAISED)
+        self.btncir.configure(relief=RAISED)
+        self.btnsel.configure(relief=RAISED)
+        self.btnline.configure(relief=RAISED)
+        self.btnclear.configure(relief=RAISED)
+        self.btnboundfill.configure(relief=RAISED)
+        self.btn8wayfill.configure(relief=RAISED)
+        self.btnoutline.configure(relief=RAISED)
+        self.canvas.bind("<Button-1>", self.scanboundstackpos)
+        self.canvas.bind("<B1-Motion>", self.nothing)    
+
+    def scanboundstackpos(self,event):
+        x = event.x
+        y = event.y
+        self.scanboundstack(x,y)
+
+    def scanboundstack(self,x,y):
+        item = self.canvas.find_closest(x, y)
+        current_color = self.canvas.itemcget(item, "fill")
+        if self.outline != self.color:
+            stack.append((x,y))
+            while stack != []:
+                x,y = stack.pop()
+                i = x
+                while i >= 0:
+                    item2 = self.canvas.find_closest(i-1, y)
+                    if self.canvas.itemcget(item2, "outline") != self.outline:
+                        i -= 1
+                    else:
+                        break
+                spanabove = False
+                spanbelow = False
+                while i < 600:
+                    print(i)
+                    item = self.canvas.find_closest(i, y)
+                    if self.canvas.itemcget(item, "outline") == self.outline:
+                        self.canvas.create_rectangle(i, y, i, y, outline=self.color)
+                        if y < 600 :
+                            item3 = self.canvas.find_closest(i, y+1)
+                            if not spanabove and self.canvas.itemcget(item3, "outline") != self.outline:
+                                stack.append((i,(y+1)))
+                                spanabove = True
+                            elif spanabove and self.canvas.itemcget(item3, "outline") == self.outline:
+                                spanabove = False
+                        if y > 0 :
+                            item4 = self.canvas.find_closest(i, y-1)
+                            if not spanbelow and self.canvas.itemcget(item4, "outline") != self.outline:
+                                stack.append((i,(y-1)))
+                                spanbelow = True
+                            elif spanbelow and self.canvas.itemcget(item4, "outline") == self.outline:
+                                spanbelow = False
+                    else :
+                        break
+                    i += 1
 
 main = Tk()
 p = Filling(main)
