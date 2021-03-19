@@ -31,34 +31,38 @@ class Filling():
         self.btnline.place(x=10, y=100)
         self.btncir=Button(main, text="CIRCLE", fg='black', width=8, command=self.circle)
         self.btncir.place(x=100, y=60)
-        self.btnclear=Button(main, text="COLOR", fg='black', width=8, command=self.color_choice)
-        self.btnclear.place(x=100, y=100)
 
-        floodfill = Label(main, text = "Flood Fill Basic").place(x = 10, y = 140) 
+        color = Label(main, text = "Color").place(x = 10, y = 140) 
+        self.btnclear=Button(main, text="Fill", fg='black', width=8, command=self.color_choice)
+        self.btnclear.place(x=10, y=170)
+        self.btnoutline=Button(main, text="Outline", fg='black', width=8, command=self.color_outline)
+        self.btnoutline.place(x=100, y=170)
+        
+        floodfill = Label(main, text = "Flood Fill Basic").place(x = 10, y = 210) 
         self.btnfill=Button(main, text="FILL", fg='black', width=8, command=self.clickfillrec)
-        self.btnfill.place(x=10, y=170)
+        self.btnfill.place(x=10, y=240)
         self.btnfillstack=Button(main, text="FILL STACK", fg='black', width=8, command=self.clickfillstack)
-        self.btnfillstack.place(x=100, y=170)
+        self.btnfillstack.place(x=100, y=240)
 
-        Boundfill = Label(main, text = "Boundary Fill Basic").place(x = 10, y = 210) 
+        Boundfill = Label(main, text = "Boundary Fill Basic").place(x = 10, y = 280) 
         self.btnboundfill=Button(main, text="Bound Fill", fg='black', width=8, command=self.bound_fill_click)
-        self.btnboundfill.place(x=10, y=240)
+        self.btnboundfill.place(x=10, y=310)
         self.btnboundstack=Button(main, text="Bound Stack", fg='black', width=8, command=self.bound_stack_click)
-        self.btnboundstack.place(x=100, y=240)
+        self.btnboundstack.place(x=100, y=310)
 
-        eightwayfill = Label(main, text = "8-Way Fill Basic").place(x = 10, y = 280) 
+        eightwayfill = Label(main, text = "8-Way Fill Basic").place(x = 10, y = 350) 
         self.btn8wayfill=Button(main, text="8 Fill", fg='black', width=8, command=self.eightway_fill_click)
-        self.btn8wayfill.place(x=10, y=310)
+        self.btn8wayfill.place(x=10, y=380)
         self.btn8waystackfill=Button(main, text="8 Fill Stack", fg='black', width=8, command=self.eightstack_fill_click)
-        self.btn8waystackfill.place(x=100, y=310)
+        self.btn8waystackfill.place(x=100, y=380)
         self.btn8wayboundary=Button(main, text="8 Fill Bound", fg='black', width=8, command=self.eightway_bound_click)
-        self.btn8wayboundary.place(x=10, y=350)
+        self.btn8wayboundary.place(x=10, y=380)
 
-        scanfloodfill = Label(main, text = "Scanline Flood Fill").place(x = 10, y = 390) 
+        scanfloodfill = Label(main, text = "Scanline Flood Fill").place(x = 10, y = 420) 
         self.btnscanfillflo=Button(main, text="Scanfill Flood", fg='black', width=8, command=self.scan_fillflo_click)
-        self.btnscanfillflo.place(x=10, y=420)
+        self.btnscanfillflo.place(x=10, y=450)
         self.btnscanflostack=Button(main, text="scanflo stack", fg='black', width=8, command=self.scanflostack_click)
-        self.btnscanflostack.place(x=100, y=420)
+        self.btnscanflostack.place(x=100, y=450)
 
         self.canvas = Canvas(self.main, bg='white', bd=5, relief=RIDGE, height=600, width=600)
         self.canvas.place(x=180, y=0)
@@ -77,6 +81,7 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=RAISED)
+        self.btnoutline.configure(relief=RAISED)
         self.canvas.unbind("<Button 1>")
         self.canvas.bind("<B1-Motion>") 
         
@@ -93,6 +98,7 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=RAISED)
+        self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<ButtonPress-1>", self.line_click)
         self.canvas.bind("<B1-Motion>", self.drag) 
         
@@ -114,6 +120,7 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=RAISED)
+        self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<ButtonPress-1>", self.circle_click)
         self.canvas.bind("<B1-Motion>", self.drag) 
         
@@ -149,8 +156,25 @@ class Filling():
         self.btnclear.configure(relief=SUNKEN)
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=RAISED)
+        self.btnoutline.configure(relief=RAISED)
         self.DEFAULT_COLOR = self.color
         self.color = askcolor(color=self.color)[1]
+
+    def color_outline(self):
+        self.btnscanfillflo.configure(relief=RAISED)
+        self.btn8wayboundary.configure(relief=RAISED)
+        self.btnboundstack.configure(relief=RAISED)
+        self.btnfillstack.configure(relief=RAISED)
+        self.btnscanflostack.configure(relief=RAISED)
+        self.btnfill.configure(relief=RAISED)
+        self.btncir.configure(relief=RAISED)
+        self.btnsel.configure(relief=RAISED)
+        self.btnline.configure(relief=RAISED)
+        self.btnclear.configure(relief=RAISED)
+        self.btnboundfill.configure(relief=RAISED)
+        self.btn8wayfill.configure(relief=RAISED)
+        self.btnoutline.configure(relief=SUNKEN)
+        self.outline = askcolor(color=self.color)[1]
 
     def clickfillrec(self):
         self.btnscanfillflo.configure(relief=RAISED)
@@ -165,6 +189,7 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=RAISED)
+        self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.position)
         self.canvas.bind("<B1-Motion>", self.nothing)
 
@@ -227,6 +252,7 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=RAISED)
+        self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.floodstackpos)
         self.canvas.bind("<B1-Motion>", self.nothing)      
 
@@ -278,6 +304,7 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=SUNKEN)
         self.btn8wayfill.configure(relief=RAISED)
+        self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.boufindobj)
         self.canvas.bind("<B1-Motion>", self.nothing)
 
@@ -321,6 +348,7 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=RAISED)
+        self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.boundstackpos)
         self.canvas.bind("<B1-Motion>", self.nothing)   
     
@@ -371,6 +399,7 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=SUNKEN)
+        self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.eightwaypos)
         self.canvas.bind("<B1-Motion>", self.nothing)
 
@@ -422,6 +451,7 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=RAISED)
+        self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.eightwaystackpos)
         self.canvas.bind("<B1-Motion>", self.nothing)
 
@@ -483,6 +513,7 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=RAISED)
+        self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.eightwayboundpos)
         self.canvas.bind("<B1-Motion>", self.nothing)
 
@@ -536,6 +567,7 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=RAISED)
+        self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.scanflopos)
         self.canvas.bind("<B1-Motion>", self.nothing)
     
@@ -592,6 +624,7 @@ class Filling():
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
         self.btn8wayfill.configure(relief=RAISED)
+        self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.scanflostackpos)
         self.canvas.bind("<B1-Motion>", self.nothing)
 
