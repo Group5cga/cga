@@ -504,7 +504,7 @@ class Filling():
         current_color = self.canvas.itemcget(item, "fill")
         self.scanfillflo(x,y)
 
-    def scanfillflo(self, x, y): #result = not responding wkwkwk
+    def scanfillflo(self, x, y):
         i = x
         if current_color != self.color:
             while i >= 0:
@@ -574,6 +574,7 @@ class Filling():
                 spanabove = False
                 spanbelow = False
                 while i < 600:
+                    print(i)
                     item = self.canvas.find_closest(i, y)
                     if self.canvas.itemcget(item, "fill") == current_color:
                         self.canvas.create_rectangle(i, y, i, y, outline=self.color)
@@ -587,11 +588,14 @@ class Filling():
                         if y > 0 :
                             item4 = self.canvas.find_closest(i, y-1)
                             if not spanbelow and self.canvas.itemcget(item4, "fill") == current_color:
-                                stack.append((i,(y+1)))
-                                spanabove = True
-                            elif spanabove and self.canvas.itemcget(item4, "fill") != current_color:
-                                spanabove = False
-                        i += 1
+                                stack.append((i,(y-1)))
+                                spanbelow = True
+                            elif spanbelow and self.canvas.itemcget(item4, "fill") != current_color:
+                                spanbelow = False
+                    else :
+                        break
+                    i += 1
+                    
 
 main = Tk()
 p = Filling(main)
