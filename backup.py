@@ -296,19 +296,18 @@ class Filling():
         item3 = self.canvas.find_closest(x, y-1)
         item5 = self.canvas.find_closest(x, y+1)
         self.canvas.create_rectangle(x, y, x, y,outline=self.color)
-        if(self.canvas.itemcget(item4, 'fill') != self.outline and self.canvas.itemcget(item4, 'fill')  != self.color):
-                self.boundfill((x+1), y)
-                print(x,y,"if 1")
-                return
-        if (self.canvas.itemcget(item2, 'fill') != self.outline and self.canvas.itemcget(item2, 'fill') != self.color):
+        if (self.canvas.itemcget(item2, 'outline') != self.outline and self.canvas.itemcget(item2, 'fill') != self.color):
                 self.boundfill((x-1), y)
-                print(x,y,"if 2")
-        if (self.canvas.itemcget(item3, 'fill') != self.outline and self.canvas.itemcget(item3, 'fill') != self.color): 
+                #print(x,y,"if 2")
+        if (self.canvas.itemcget(item3, 'outline') != self.outline and self.canvas.itemcget(item3, 'fill') != self.color): 
                 self.boundfill(x, (y-1))
-                print(x,y,"if 3")
-        if (self.canvas.itemcget(item5, 'fill') != self.outline and self.canvas.itemcget(item5, 'fill') != self.color):    
+                #print(x,y,"if 3")
+        if(self.canvas.itemcget(item4, 'outline') != self.outline and self.canvas.itemcget(item4, 'fill')  != self.color):
+                self.boundfill((x+1), y)
+                #print(x,y,"if 1")
+        if (self.canvas.itemcget(item5, 'outline') != self.outline and self.canvas.itemcget(item5, 'fill') != self.color):    
                 self.boundfill(x, (y+1))
-                print(x,y,"if 4")
+                #print(x,y,"if 4")
 
     def bound_stack_click(self):
         self.btnscanfillflo.configure(relief=RAISED)
