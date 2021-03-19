@@ -316,22 +316,22 @@ class Filling():
         y = event.y
         self.boundfill(x,y)   
 
-    def boundfill(self, x, y):#Blom jalan
-        item4 = self.canvas.find_closest(x+1, y)
+    def boundfill(self, x, y):
         item2 = self.canvas.find_closest(x-1, y)
         item3 = self.canvas.find_closest(x, y-1)
+        item4 = self.canvas.find_closest(x+1, y)
         item5 = self.canvas.find_closest(x, y+1)
         self.canvas.create_rectangle(x, y, x, y,outline=self.color)
-        if ((self.canvas.itemcget(item2, 'outline') != self.outline) and (self.canvas.itemcget(item2, 'fill') != self.color)):
+        if ((self.canvas.itemcget(item2, 'fill') != self.color) and (self.canvas.itemcget(item2, 'outline') != self.outline)):
                 self.boundfill((x-1), y)
                 #print(x,y,"if 2")
-        if ((self.canvas.itemcget(item3, 'outline') != self.outline) and (self.canvas.itemcget(item3, 'fill') != self.color)): 
+        if ((self.canvas.itemcget(item3, 'fill') != self.color) and (self.canvas.itemcget(item3, 'outline') != self.outline)): 
                 self.boundfill(x, (y-1))
                 #print(x,y,"if 3")
-        if((self.canvas.itemcget(item4, 'outline') != self.outline) and (self.canvas.itemcget(item4, 'fill')  != self.color)):
+        if((self.canvas.itemcget(item4, 'fill')  != self.color) and (self.canvas.itemcget(item4, 'outline') != self.outline)):
                 self.boundfill((x+1), y)
                 #print(x,y,"if 1")
-        if ((self.canvas.itemcget(item5, 'outline') != self.outline) and (self.canvas.itemcget(item5, 'fill') != self.color)):    
+        if ((self.canvas.itemcget(item5, 'fill') != self.color) and (self.canvas.itemcget(item5, 'outline') != self.outline)):    
                 self.boundfill(x, (y+1))
                 #print(x,y,"if 4")
 
@@ -363,7 +363,7 @@ class Filling():
     def boundstack(self,x,y):
         stack.append((x,y))
         #print(stack)
-        if current_color != self.color:
+        if self.outline != self.color:
             while stack != []:
                 x,y = stack.pop()
                 self.canvas.create_rectangle(x, y, x, y, outline=self.color)
