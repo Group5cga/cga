@@ -120,7 +120,7 @@ class Filling():
     def circle_click(self, e):
         coords["x1"] = e.x
         coords["y1"] = e.y
-        lines.append(self.canvas.create_oval(coords["x1"],coords["y1"],coords["x1"],coords["y1"],outline=self.outline))    
+        lines.append(self.canvas.create_oval(coords["x1"],coords["y1"],coords["x1"],coords["y1"],outline=self.outline, width=2))    
         
     def drag(self, e):
         coords["x2"] = e.x
@@ -288,36 +288,27 @@ class Filling():
         get_coords = tuple(map(int, get_coords))
         x = event.x
         y = event.y
-        borderlimit = self.canvas.create_oval(get_coords, outline='black')
-        border = self.canvas.itemcget(borderlimit, 'outline')
         self.boundfill(x,y)   
 
-    def boundfill(self,x,y):#Blom jalan
-        item = self.canvas.find_closest(x, y)
+    def boundfill(self, x, y):#Blom jalan
         item4 = self.canvas.find_closest(x+1, y)
         item2 = self.canvas.find_closest(x-1, y)
         item3 = self.canvas.find_closest(x, y-1)
         item5 = self.canvas.find_closest(x, y+1)
-        current_color = self.canvas.itemcget(item, 'fill')
         self.canvas.create_rectangle(x, y, x, y,outline=self.color)
-        #print(self.canvas.itemcget(item, 'fill'))
-        #print(item2)
-        #print(item3)
-        #print(item4)
-        #print(item5)
-        #print(border)
-        if self.canvas.itemcget(item4, 'fill') != self.outline:
-            if self.canvas.itemcget(item4, 'fill')  != self.color:  
-                self.boundfill((x+1), y)  
-        if self.canvas.itemcget(item2, 'fill') != self.outline:
-            if self.canvas.itemcget(item2, 'fill') != self.color:        
+        if(self.canvas.itemcget(item4, 'fill') != self.outline and self.canvas.itemcget(item4, 'fill')  != self.color):
+                self.boundfill((x+1), y)
+                print(x,y,"if 1")
+                return
+        if (self.canvas.itemcget(item2, 'fill') != self.outline and self.canvas.itemcget(item2, 'fill') != self.color):
                 self.boundfill((x-1), y)
-        if self.canvas.itemcget(item3, 'fill') != self.outline:
-            if self.canvas.itemcget(item3, 'fill') != self.color: 
+                print(x,y,"if 2")
+        if (self.canvas.itemcget(item3, 'fill') != self.outline and self.canvas.itemcget(item3, 'fill') != self.color): 
                 self.boundfill(x, (y-1))
-        if self.canvas.itemcget(item5, 'fill') != self.outline:
-            if self.canvas.itemcget(item5, 'fill') != self.color:    
+                print(x,y,"if 3")
+        if (self.canvas.itemcget(item5, 'fill') != self.outline and self.canvas.itemcget(item5, 'fill') != self.color):    
                 self.boundfill(x, (y+1))
+                print(x,y,"if 4")
 
     def bound_stack_click(self):
         self.btnscanfillflo.configure(relief=RAISED)
@@ -407,21 +398,21 @@ class Filling():
         item9 = self.canvas.find_closest(x+1, y-1)
         current_color = self.canvas.itemcget(item, "fill")
         self.canvas.create_rectangle(x, y, x, y, outline=self.color)
-        if(x >= 0 and self.canvas.itemcget(item2, 'fill') == current_color):
+        if(x >= 0 and self.canvas.itemcget(item2, 'fill') == current_color and self.canvas.itemcget(item2, 'fill') != self.color):
             self.eightwayfill((x-1), y)
-        if (x < 800 and self.canvas.itemcget(item4, 'fill') == current_color): 
+        if (x < 800 and self.canvas.itemcget(item4, 'fill') == current_color and self.canvas.itemcget(item4, 'fill') != self.color): 
             self.eightwayfill((x+1), y)
-        if (y >= 0 and self.canvas.itemcget(item3, 'fill') == current_color): 
+        if (y >= 0 and self.canvas.itemcget(item3, 'fill') == current_color and self.canvas.itemcget(item3, 'fill') != self.color): 
             self.eightwayfill(x, (y - 1))
-        if (y < 620 and self.canvas.itemcget(item5, 'fill') == current_color):
+        if (y < 620 and self.canvas.itemcget(item5, 'fill') == current_color and self.canvas.itemcget(item5, 'fill') != self.color):
             self.eightwayfill(x,(y + 1))
-        if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item6, 'fill') == current_color):
+        if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item6, 'fill') == current_color and self.canvas.itemcget(item6, 'fill') != self.color):
             self.eightwayfill((x+1),(y + 1))
-        if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item7, 'fill') == current_color):
+        if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item7, 'fill') == current_color and self.canvas.itemcget(item7, 'fill') != self.color):
             self.eightwayfill((x - 1), (y - 1))
-        if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item9, 'fill') == current_color):
+        if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item9, 'fill') == current_color and self.canvas.itemcget(item9, 'fill') != self.color):
             self.eightwayfill((x + 1), (y - 1))
-        if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item8, 'fill') == current_color):
+        if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item8, 'fill') == current_color and self.canvas.itemcget(item8, 'fill') != self.color):
             self.eightwayfill((x - 1), (y + 1))
         
     def eightstack_fill_click(self):
