@@ -514,16 +514,19 @@ class Filling():
         self.canvas.bind("<B1-Motion>", self.nothing)                   
 
     def scanboundpos(self,event):
+        global current_color
         x = event.x
         y = event.y
+        item = self.canvas.find_closest(x, y)
+        current_color = self.canvas.itemcget(item, "fill")
         self.scanboundrec(x,y)
     
     def scanboundrec(self,x,y):
         i = x
-        if self.outline != self.color:
+        if current_color != self.outline or self.color:
             while i >= 0:
                 item2 = self.canvas.find_closest(i, y)
-                if self.canvas.itemcget(item2, "outline") != self.outline:
+                if self.canvas.itemcget(item2, 'outline') != self.color and self.canvas.itemcget(item2, 'outline') != self.outline:
                     self.canvas.create_rectangle(x, y, x, y, outline=self.color)
                     i -= 1
                 else:
@@ -534,7 +537,7 @@ class Filling():
             i = x + 1
             while i <= 700:
                 item2 = self.canvas.find_closest(i, y)
-                if self.canvas.itemcget(item2, "outline") != self.outline:
+                if self.canvas.itemcget(item2, 'outline') != self.color and self.canvas.itemcget(item2, 'outline') != self.outline:
                     self.canvas.create_rectangle(x, y, x, y, outline=self.color)
                     i += 1
                 else:
@@ -545,9 +548,9 @@ class Filling():
             for i in range (L, R):
                 item3 = self.canvas.find_closest(i, y+1)
                 item4 = self.canvas.find_closest(i, y-1)
-                if self.canvas.itemcget(item3, "outline") != self.outline:
+                if self.canvas.itemcget(item3, 'outline') != self.color and self.canvas.itemcget(item3, 'outline') != self.outline:
                     self.scanboundrec(i,(y+1))
-                if self.canvas.itemcget(item4, "outline") != self.outline:
+                if self.canvas.itemcget(item4, 'outline') != self.color and self.canvas.itemcget(item4, 'outline') != self.outline:
                     self.scanboundrec(i,(y-1))
 
     def scanboundstack_click(self):
@@ -575,14 +578,14 @@ class Filling():
     def scanboundstack(self,x,y):
         item = self.canvas.find_closest(x, y)
         current_color = self.canvas.itemcget(item, "fill")
-        if self.outline != self.color:
+        if current_color != self.outline or self.color:
             stack.append((x,y))
             while stack != []:
                 x,y = stack.pop()
                 i = x
                 while i >= 0:
                     item2 = self.canvas.find_closest(i-1, y)
-                    if self.canvas.itemcget(item2, "outline") != self.outline:
+                    if self.canvas.itemcget(item2, 'outline') != self.color and self.canvas.itemcget(item2, 'outline') != self.outline:
                         i -= 1
                     else:
                         break
@@ -591,21 +594,21 @@ class Filling():
                 while i < 600:
                     print(i)
                     item = self.canvas.find_closest(i, y)
-                    if self.canvas.itemcget(item, "outline") == self.outline:
+                    if self.canvas.itemcget(item, 'outline') != self.color and self.canvas.itemcget(item, 'outline') != self.outline:
                         self.canvas.create_rectangle(i, y, i, y, outline=self.color)
                         if y < 600 :
                             item3 = self.canvas.find_closest(i, y+1)
-                            if not spanabove and self.canvas.itemcget(item3, "outline") != self.outline:
+                            if not spanabove and self.canvas.itemcget(item3, 'outline') != self.color and self.canvas.itemcget(item3, 'outline') != self.outline:
                                 stack.append((i,(y+1)))
                                 spanabove = True
-                            elif spanabove and self.canvas.itemcget(item3, "outline") == self.outline:
+                            elif spanabove and self.canvas.itemcget(item3, 'outline') != self.color and self.canvas.itemcget(item3, 'outline') != self.outline:
                                 spanabove = False
                         if y > 0 :
                             item4 = self.canvas.find_closest(i, y-1)
-                            if not spanbelow and self.canvas.itemcget(item4, "outline") != self.outline:
+                            if not spanbelow and self.canvas.itemcget(item4, 'outline') != self.color and self.canvas.itemcget(item4, 'outline') != self.outline:
                                 stack.append((i,(y-1)))
                                 spanbelow = True
-                            elif spanbelow and self.canvas.itemcget(item4, "outline") == self.outline:
+                            elif spanbelow and self.canvas.itemcget(item4, 'outline') != self.color and self.canvas.itemcget(item4, 'outline') != self.outline:
                                 spanbelow = False
                     else :
                         break
