@@ -496,7 +496,7 @@ class Filling():
                         break
                     i += 1
 
-    def scanboundrec_click(self):)
+    def scanboundrec_click(self):
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
         self.btnscanfillflo.configure(relief=RAISED)
