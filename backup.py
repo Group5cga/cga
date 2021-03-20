@@ -55,20 +55,22 @@ class Filling():
         self.btnscanfillflo.place(x=10, y=380)
         self.btnscanflostack=Button(main, text="ScanFlood Stack", fg='black', width=8, command=self.scanflostack_click)
         self.btnscanflostack.place(x=100, y=380)
-        self.btnscanflostack=Button(main, text="ScanBound Recursive", fg='black', width=8, command=self.scanboundrec_click)
-        self.btnscanflostack.place(x=10, y=420)
-        self.btnscanflostack=Button(main, text="ScanBound Stack", fg='black', width=8, command=self.scanboundstack_click)
-        self.btnscanflostack.place(x=100, y=420)
+        self.btnscanboundrec=Button(main, text="ScanBound Recursive", fg='black', width=8, command=self.scanboundrec_click)
+        self.btnscanboundrec.place(x=10, y=420)
+        self.btnscanboundstack=Button(main, text="ScanBound Stack", fg='black', width=8, command=self.scanboundstack_click)
+        self.btnscanboundstack.place(x=100, y=420)
 
         self.canvas = Canvas(self.main, bg='white', bd=5, relief=RIDGE, height=600, width=600)
         self.canvas.place(x=180, y=0)
         self.canvas.create_rectangle(0, 0, 650, 600, fill='white', outline='white')
 
     def select(self):
-        self.btnscanfillflo.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
+        self.btnscanfillflo.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=RAISED)
+        self.btnscanboundrec.configure(relief=RAISED)
+        self.btnscanboundstack.configure(relief=RAISED)
         self.btnfill.configure(relief=RAISED)
         self.btncir.configure(relief=RAISED)
         self.btnsel.configure(relief=SUNKEN)
@@ -80,10 +82,12 @@ class Filling():
         self.canvas.bind("<B1-Motion>") 
         
     def line(self):
-        self.btnscanfillflo.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
+        self.btnscanfillflo.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=RAISED)
+        self.btnscanboundrec.configure(relief=RAISED)
+        self.btnscanboundstack.configure(relief=RAISED)
         self.btnfill.configure(relief=RAISED)
         self.btncir.configure(relief=RAISED)
         self.btnsel.configure(relief=RAISED)
@@ -100,10 +104,12 @@ class Filling():
         lines.append(self.canvas.create_line(coords["x1"],coords["y1"],coords["x1"],coords["y1"],fill=self.color))
         
     def circle(self):
-        self.btnscanfillflo.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
+        self.btnscanfillflo.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=RAISED)
+        self.btnscanboundrec.configure(relief=RAISED)
+        self.btnscanboundstack.configure(relief=RAISED)
         self.btnfill.configure(relief=RAISED)
         self.btncir.configure(relief=SUNKEN)
         self.btnsel.configure(relief=RAISED)
@@ -134,10 +140,12 @@ class Filling():
         stack = []
         
     def color_choice(self):
-        self.btnscanfillflo.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
+        self.btnscanfillflo.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=RAISED)
+        self.btnscanboundrec.configure(relief=RAISED)
+        self.btnscanboundstack.configure(relief=RAISED)
         self.btnfill.configure(relief=RAISED)
         self.btncir.configure(relief=RAISED)
         self.btnsel.configure(relief=RAISED)
@@ -149,10 +157,12 @@ class Filling():
         self.color = askcolor(color=self.color)[1]
 
     def color_outline(self):
-        self.btnscanfillflo.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
+        self.btnscanfillflo.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=RAISED)
+        self.btnscanboundrec.configure(relief=RAISED)
+        self.btnscanboundstack.configure(relief=RAISED)
         self.btnfill.configure(relief=RAISED)
         self.btncir.configure(relief=RAISED)
         self.btnsel.configure(relief=RAISED)
@@ -163,10 +173,12 @@ class Filling():
         self.outline = askcolor(color=self.color)[1]
 
     def clickfillrec(self):
-        self.btnscanfillflo.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
+        self.btnscanfillflo.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=RAISED)
+        self.btnscanboundrec.configure(relief=RAISED)
+        self.btnscanboundstack.configure(relief=RAISED)
         self.btnfill.configure(relief=SUNKEN)
         self.btncir.configure(relief=RAISED)
         self.btnsel.configure(relief=RAISED)
@@ -224,10 +236,12 @@ class Filling():
         #    return
         
     def clickfillstack(self):
-        self.btnscanfillflo.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=SUNKEN)
+        self.btnscanfillflo.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=RAISED)
+        self.btnscanboundrec.configure(relief=RAISED)
+        self.btnscanboundstack.configure(relief=RAISED)
         self.btnfill.configure(relief=RAISED)
         self.btncir.configure(relief=RAISED)
         self.btnsel.configure(relief=RAISED)
@@ -274,10 +288,12 @@ class Filling():
                     #print("stack 4")
     
     def bound_fill_click(self):
-        self.btnscanfillflo.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
+        self.btnscanfillflo.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=RAISED)
+        self.btnscanboundrec.configure(relief=RAISED)
+        self.btnscanboundstack.configure(relief=RAISED)
         self.btnfill.configure(relief=RAISED)
         self.btncir.configure(relief=RAISED)
         self.btnsel.configure(relief=RAISED)
@@ -289,9 +305,6 @@ class Filling():
         self.canvas.bind("<B1-Motion>", self.nothing)
 
     def boufindobj(self, event):
-        global get_coords, borderlimit, border
-        get_coords = self.canvas.coords(lines[0])
-        get_coords = tuple(map(int, get_coords))
         x = event.x
         y = event.y
         self.boundfill(x,y)   
@@ -316,10 +329,12 @@ class Filling():
                 #print(x,y,"if 4")
 
     def bound_stack_click(self):
-        self.btnscanfillflo.configure(relief=RAISED)
         self.btnboundstack.configure(relief=SUNKEN)
         self.btnfillstack.configure(relief=RAISED)
+        self.btnscanfillflo.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=RAISED)
+        self.btnscanboundrec.configure(relief=RAISED)
+        self.btnscanboundstack.configure(relief=RAISED)
         self.btnfill.configure(relief=RAISED)
         self.btncir.configure(relief=RAISED)
         self.btnsel.configure(relief=RAISED)
@@ -364,10 +379,12 @@ class Filling():
                     #print("stack 4", stack)
 
     def scan_fillflo_click(self):
-        self.btnscanfillflo.configure(relief=SUNKEN)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
+        self.btnscanfillflo.configure(relief=SUNKEN)
         self.btnscanflostack.configure(relief=RAISED)
+        self.btnscanboundrec.configure(relief=RAISED)
+        self.btnscanboundstack.configure(relief=RAISED)
         self.btnfill.configure(relief=RAISED)
         self.btncir.configure(relief=RAISED)
         self.btnsel.configure(relief=RAISED)
@@ -419,10 +436,12 @@ class Filling():
                     self.scanfillflo(i,(y-1))
     
     def scanflostack_click(self):
-        self.btnscanfillflo.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
+        self.btnscanfillflo.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=SUNKEN)
+        self.btnscanboundrec.configure(relief=RAISED)
+        self.btnscanboundstack.configure(relief=RAISED)
         self.btnfill.configure(relief=RAISED)
         self.btncir.configure(relief=RAISED)
         self.btnsel.configure(relief=RAISED)
@@ -477,11 +496,13 @@ class Filling():
                         break
                     i += 1
 
-    def scanboundrec_click(self):
-        self.btnscanfillflo.configure(relief=RAISED)
+    def scanboundrec_click(self):)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
-        self.btnscanflostack.configure(relief=SUNKEN)
+        self.btnscanfillflo.configure(relief=RAISED)
+        self.btnscanflostack.configure(relief=RAISED)
+        self.btnscanboundrec.configure(relief=SUNKEN)
+        self.btnscanboundstack.configure(relief=RAISED)
         self.btnfill.configure(relief=RAISED)
         self.btncir.configure(relief=RAISED)
         self.btnsel.configure(relief=RAISED)
@@ -530,10 +551,12 @@ class Filling():
                     self.scanboundrec(i,(y-1))
 
     def scanboundstack_click(self):
-        self.btnscanfillflo.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
-        self.btnscanflostack.configure(relief=SUNKEN)
+        self.btnscanfillflo.configure(relief=RAISED)
+        self.btnscanflostack.configure(relief=RAISED)
+        self.btnscanboundrec.configure(relief=RAISED)
+        self.btnscanboundstack.configure(relief=SUNKEN)
         self.btnfill.configure(relief=RAISED)
         self.btncir.configure(relief=RAISED)
         self.btnsel.configure(relief=RAISED)
