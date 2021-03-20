@@ -1,5 +1,7 @@
 from tkinter import *
 from tkinter.colorchooser import askcolor
+from tkinter import filedialog
+from PIL import ImageGrab
 import sys
 sys.setrecursionlimit(2450)
 
@@ -19,6 +21,8 @@ class Filling():
         self.outline = "black"
         menubar = Menu(main)
         filemenu = Menu(menubar, tearoff=0)
+        filemenu.add_command(label="Save", command=self.save)
+        filemenu.add_command(label="Load", command=self.load)
         filemenu.add_command(label="Clear", command=self.clear)
         filemenu.add_separator()
         filemenu.add_command(label="Exit", command=main.quit)
@@ -63,7 +67,24 @@ class Filling():
         self.canvas = Canvas(self.main, bg='white', bd=5, relief=RIDGE, height=600, width=600)
         self.canvas.place(x=180, y=0)
         self.canvas.create_rectangle(0, 0, 650, 600, fill='white', outline='white')
-
+    def save(self):
+        # self.canvas.update()
+        # files = [('Encapsulated PostScript', '*.eps')]
+        # file = asksaveasfile(filetypes=files, defaultextension=files)
+        # print(files, file)
+        #self.canvas.postscript(file="test.eps")
+        result = filedialog.asksaveasfilename(title="Select file", filetypes=(
+        ('JPEG', ('*.jpg', '*.jpeg')), ('PNG', '*.png'))
+        if result:
+            x = main.winfo_rootx()
+            y = main.winfo_rooty()
+            height = main.winfo_height() + y
+            width = main.winfo_width() + x
+            ImageGrab.grab().crop(((x+180), y, width, height)).save(result)
+    def load(self):
+        imageee = PhotoImage('test.png')
+        label = ttk.Label(main, image = imageee)
+        label.pack()
     def select(self):
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
