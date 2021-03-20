@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter.colorchooser import askcolor
 from tkinter import filedialog
-from PIL import ImageGrab
+from PIL import ImageGrab, ImageTk, Image
 import sys
 sys.setrecursionlimit(2450)
 
@@ -73,8 +73,9 @@ class Filling():
         # file = asksaveasfile(filetypes=files, defaultextension=files)
         # print(files, file)
         #self.canvas.postscript(file="test.eps")
+        
         result = filedialog.asksaveasfilename(title="Select file", filetypes=(
-        ('JPEG', ('*.jpg', '*.jpeg')), ('PNG', '*.png'))
+        ('JPEG', ('*.jpg', '*.jpeg')), ('PNG', '*.png')))
         if result:
             x = main.winfo_rootx()
             y = main.winfo_rooty()
@@ -82,9 +83,14 @@ class Filling():
             width = main.winfo_width() + x
             ImageGrab.grab().crop(((x+180), y, width, height)).save(result)
     def load(self):
-        imageee = PhotoImage('test.png')
-        label = ttk.Label(main, image = imageee)
-        label.pack()
+        self.filename = filedialog.askopenfilename()
+        if self.filename:
+            image = Image.open(self.filename)
+            imagetk = ImageTk.PhotoImage(image)
+            self.canvas.create_image(0,0, image=imagetk)
+            print("sukses")
+            self.canvas.update()
+
     def select(self):
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
