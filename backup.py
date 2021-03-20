@@ -365,16 +365,16 @@ class Filling():
                 item4 = self.canvas.find_closest(x+1, y)
                 item5 = self.canvas.find_closest(x, y+1)
                 print("stack while", stack)
-                if (x >= 0 and (self.canvas.itemcget(item2, 'fill')) != self.outline and (self.canvas.itemcget(item2, 'fill')) != self.color):
+                if (x >= 0 and (self.canvas.itemcget(item2, 'outline')) != self.outline and (self.canvas.itemcget(item2, 'outline')) != self.color):
                     stack.append(((x-1), y))
                     #print("stack 1", stack)
-                if (y >= 0 and (self.canvas.itemcget(item4, 'fill')) != self.outline and (self.canvas.itemcget(item4, 'fill')) != self.color):
+                if (y >= 0 and (self.canvas.itemcget(item4, 'outline')) != self.outline and (self.canvas.itemcget(item4, 'outline')) != self.color):
                     stack.append((x, (y-1)))
                     #print("stack 2", stack)
-                if (x < 800 and (self.canvas.itemcget(item3, 'fill')) != self.outline and (self.canvas.itemcget(item3, 'fill')) != self.color): 
+                if (x < 800 and (self.canvas.itemcget(item3, 'outline')) != self.outline and (self.canvas.itemcget(item3, 'outline')) != self.color): 
                     stack.append(((x+1), y))
                     #print("stack 3", stack)
-                if (y < 620 and (self.canvas.itemcget(item5, 'fill')) != self.outline and (self.canvas.itemcget(item5, 'fill')) != self.color):
+                if (y < 620 and (self.canvas.itemcget(item5, 'outline')) != self.outline and (self.canvas.itemcget(item5, 'outline')) != self.color):
                     stack.append((x, (y+1)))
                     #print("stack 4", stack)
 
