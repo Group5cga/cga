@@ -50,14 +50,6 @@ class Filling():
         self.btnboundstack=Button(main, text="Bound Stack", fg='black', width=8, command=self.bound_stack_click)
         self.btnboundstack.place(x=100, y=310)
 
-        eightwayfill = Label(main, text = "8-Way Fill Basic").place(x = 10, y = 350) 
-        self.btn8wayfill=Button(main, text="8 Fill", fg='black', width=8, command=self.eightway_fill_click)
-        self.btn8wayfill.place(x=10, y=380)
-        self.btn8waystackfill=Button(main, text="8 Fill Stack", fg='black', width=8, command=self.eightstack_fill_click)
-        self.btn8waystackfill.place(x=100, y=380)
-        self.btn8wayboundary=Button(main, text="8 Fill Bound", fg='black', width=8, command=self.eightway_bound_click)
-        self.btn8wayboundary.place(x=10, y=420)
-
         scanfloodfill = Label(main, text = "Scanline").place(x = 10, y = 460) 
         self.btnscanfillflo=Button(main, text="ScanFlood Recursive", fg='black', width=8, command=self.scan_fillflo_click)
         self.btnscanfillflo.place(x=10, y=490)
@@ -74,7 +66,6 @@ class Filling():
 
     def select(self):
         self.btnscanfillflo.configure(relief=RAISED)
-        self.btn8wayboundary.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=RAISED)
@@ -84,14 +75,12 @@ class Filling():
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
-        self.btn8wayfill.configure(relief=RAISED)
         self.btnoutline.configure(relief=RAISED)
         self.canvas.unbind("<Button 1>")
         self.canvas.bind("<B1-Motion>") 
         
     def line(self):
         self.btnscanfillflo.configure(relief=RAISED)
-        self.btn8wayboundary.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=RAISED)
@@ -101,7 +90,6 @@ class Filling():
         self.btnline.configure(relief=SUNKEN)
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
-        self.btn8wayfill.configure(relief=RAISED)
         self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<ButtonPress-1>", self.line_click)
         self.canvas.bind("<B1-Motion>", self.drag) 
@@ -113,7 +101,6 @@ class Filling():
         
     def circle(self):
         self.btnscanfillflo.configure(relief=RAISED)
-        self.btn8wayboundary.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=RAISED)
@@ -123,7 +110,6 @@ class Filling():
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
-        self.btn8wayfill.configure(relief=RAISED)
         self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<ButtonPress-1>", self.circle_click)
         self.canvas.bind("<B1-Motion>", self.drag) 
@@ -149,7 +135,6 @@ class Filling():
         
     def color_choice(self):
         self.btnscanfillflo.configure(relief=RAISED)
-        self.btn8wayboundary.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=RAISED)
@@ -159,14 +144,12 @@ class Filling():
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=SUNKEN)
         self.btnboundfill.configure(relief=RAISED)
-        self.btn8wayfill.configure(relief=RAISED)
         self.btnoutline.configure(relief=RAISED)
         self.DEFAULT_COLOR = self.color
         self.color = askcolor(color=self.color)[1]
 
     def color_outline(self):
         self.btnscanfillflo.configure(relief=RAISED)
-        self.btn8wayboundary.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=RAISED)
@@ -176,13 +159,11 @@ class Filling():
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
-        self.btn8wayfill.configure(relief=RAISED)
         self.btnoutline.configure(relief=SUNKEN)
         self.outline = askcolor(color=self.color)[1]
 
     def clickfillrec(self):
         self.btnscanfillflo.configure(relief=RAISED)
-        self.btn8wayboundary.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=RAISED)
@@ -192,7 +173,6 @@ class Filling():
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
-        self.btn8wayfill.configure(relief=RAISED)
         self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.position)
         self.canvas.bind("<B1-Motion>", self.nothing)
@@ -245,7 +225,6 @@ class Filling():
         
     def clickfillstack(self):
         self.btnscanfillflo.configure(relief=RAISED)
-        self.btn8wayboundary.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=SUNKEN)
         self.btnscanflostack.configure(relief=RAISED)
@@ -255,7 +234,6 @@ class Filling():
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
-        self.btn8wayfill.configure(relief=RAISED)
         self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.floodstackpos)
         self.canvas.bind("<B1-Motion>", self.nothing)      
@@ -297,7 +275,6 @@ class Filling():
     
     def bound_fill_click(self):
         self.btnscanfillflo.configure(relief=RAISED)
-        self.btn8wayboundary.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=RAISED)
@@ -307,7 +284,6 @@ class Filling():
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=SUNKEN)
-        self.btn8wayfill.configure(relief=RAISED)
         self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.boufindobj)
         self.canvas.bind("<B1-Motion>", self.nothing)
@@ -341,7 +317,6 @@ class Filling():
 
     def bound_stack_click(self):
         self.btnscanfillflo.configure(relief=RAISED)
-        self.btn8wayboundary.configure(relief=RAISED)
         self.btnboundstack.configure(relief=SUNKEN)
         self.btnfillstack.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=RAISED)
@@ -351,7 +326,6 @@ class Filling():
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
-        self.btn8wayfill.configure(relief=RAISED)
         self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.boundstackpos)
         self.canvas.bind("<B1-Motion>", self.nothing)   
@@ -387,179 +361,10 @@ class Filling():
                     #print("stack 3", stack)
                 if (y < 620 and (self.canvas.itemcget(item5, 'outline')) != self.outline and (self.canvas.itemcget(item5, 'fill')) != self.color):
                     stack.append((x, (y+1)))
-                    #print("stack 4", stack)    
-
-    def eightway_fill_click(self):
-        self.btnscanfillflo.configure(relief=RAISED)
-        self.btn8wayboundary.configure(relief=RAISED)
-        self.btnboundstack.configure(relief=RAISED)
-        self.btnfillstack.configure(relief=RAISED)
-        self.btnscanflostack.configure(relief=RAISED)
-        self.btnfill.configure(relief=RAISED)
-        self.btncir.configure(relief=RAISED)
-        self.btnsel.configure(relief=RAISED)
-        self.btnline.configure(relief=RAISED)
-        self.btnclear.configure(relief=RAISED)
-        self.btnboundfill.configure(relief=RAISED)
-        self.btn8wayfill.configure(relief=SUNKEN)
-        self.btnoutline.configure(relief=RAISED)
-        self.canvas.bind("<Button-1>", self.eightwaypos)
-        self.canvas.bind("<B1-Motion>", self.nothing)
-
-    def eightwaypos(self, event):
-        x = event.x
-        y = event.y
-        self.eightwayfill(x,y)
-        
-    def eightwayfill(self, x, y):
-        item = self.canvas.find_closest(x, y)
-        item2 = self.canvas.find_closest(x-1, y)
-        item3 = self.canvas.find_closest(x, y-1)
-        item4 = self.canvas.find_closest(x+1, y)
-        item5 = self.canvas.find_closest(x, y+1)
-        item6 = self.canvas.find_closest(x+1, y+1)
-        item7 = self.canvas.find_closest(x-1, y-1)
-        item8 = self.canvas.find_closest(x-1, y+1)
-        item9 = self.canvas.find_closest(x+1, y-1)
-        current_color = self.canvas.itemcget(item, "fill")
-        self.canvas.create_rectangle(x, y, x, y, outline=self.color)
-        if(x >= 0 and self.canvas.itemcget(item2, 'fill') == current_color and self.canvas.itemcget(item2, 'fill') != self.color):
-            self.eightwayfill((x-1), y)
-        if (x < 800 and self.canvas.itemcget(item4, 'fill') == current_color and self.canvas.itemcget(item4, 'fill') != self.color): 
-            self.eightwayfill((x+1), y)
-        if (y >= 0 and self.canvas.itemcget(item3, 'fill') == current_color and self.canvas.itemcget(item3, 'fill') != self.color): 
-            self.eightwayfill(x, (y - 1))
-        if (y < 620 and self.canvas.itemcget(item5, 'fill') == current_color and self.canvas.itemcget(item5, 'fill') != self.color):
-            self.eightwayfill(x,(y + 1))
-        if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item6, 'fill') == current_color and self.canvas.itemcget(item6, 'fill') != self.color):
-            self.eightwayfill((x+1),(y + 1))
-        if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item7, 'fill') == current_color and self.canvas.itemcget(item7, 'fill') != self.color):
-            self.eightwayfill((x - 1), (y - 1))
-        if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item9, 'fill') == current_color and self.canvas.itemcget(item9, 'fill') != self.color):
-            self.eightwayfill((x + 1), (y - 1))
-        if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item8, 'fill') == current_color and self.canvas.itemcget(item8, 'fill') != self.color):
-            self.eightwayfill((x - 1), (y + 1))
-        
-    def eightstack_fill_click(self):
-        self.btnscanfillflo.configure(relief=RAISED)
-        self.btn8wayboundary.configure(relief=RAISED)
-        self.btn8waystackfill.configure(relief=SUNKEN)
-        self.btnboundstack.configure(relief=RAISED)
-        self.btnfillstack.configure(relief=RAISED)
-        self.btnscanflostack.configure(relief=RAISED)
-        self.btnfill.configure(relief=RAISED)
-        self.btncir.configure(relief=RAISED)
-        self.btnsel.configure(relief=RAISED)
-        self.btnline.configure(relief=RAISED)
-        self.btnclear.configure(relief=RAISED)
-        self.btnboundfill.configure(relief=RAISED)
-        self.btn8wayfill.configure(relief=RAISED)
-        self.btnoutline.configure(relief=RAISED)
-        self.canvas.bind("<Button-1>", self.eightwaystackpos)
-        self.canvas.bind("<B1-Motion>", self.nothing)
-
-    def eightwaystackpos(self, event):
-        global current_color
-        x = event.x
-        y = event.y
-        item = self.canvas.find_closest(x, y)
-        current_color = self.canvas.itemcget(item, "fill")
-        self.eightwaystack(x,y)
-    
-    def eightwaystack(self,x,y):
-        if current_color != self.color:
-            stack.append((x,y))
-            #print(stack)
-            while stack != []:
-                x,y = stack.pop()
-                item2 = self.canvas.find_closest(x-1, y)
-                item3 = self.canvas.find_closest(x, y-1)
-                item4 = self.canvas.find_closest(x+1, y)
-                item5 = self.canvas.find_closest(x, y+1)
-                item6 = self.canvas.find_closest(x+1, y+1)
-                item7 = self.canvas.find_closest(x-1, y-1)
-                item8 = self.canvas.find_closest(x-1, y+1)
-                item9 = self.canvas.find_closest(x+1, y-1)
-                self.canvas.create_rectangle(x, y, x, y, outline=self.color)
-                print("stack while", stack)
-                if(x >= 0 and self.canvas.itemcget(item2, 'fill') == current_color):
-                    stack.append(((x-1), y))
-                    #print("stack 1", stack)
-                if (y >= 0 and self.canvas.itemcget(item3, 'fill') == current_color): 
-                    stack.append((x, (y-1)))
-                    #print("stack 2")
-                if (x < 800 and self.canvas.itemcget(item4, 'fill') == current_color): 
-                    stack.append(((x+1), y))
-                    #print("stack 3")
-                if (y < 620 and self.canvas.itemcget(item5, 'fill') == current_color):
-                    stack.append((x, (y+1)))
-                    #print("stack 4")
-                if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item6, 'fill') == current_color):
-                    stack.append(((x+1),(y+1)))
-                if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item7, 'fill') == current_color):
-                    stack.append(((x - 1), (y - 1)))
-                if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item9, 'fill') == current_color):
-                    stack.append(((x + 1), (y - 1)))
-                if (x >= 0 and x <800 and y> 0 and y < 620 and self.canvas.itemcget(item8, 'fill') == current_color):
-                    stack.append(((x - 1), (y + 1)))
-
-    def eightway_bound_click(self):
-        self.btnscanfillflo.configure(relief=RAISED)
-        self.btn8wayboundary.configure(relief=SUNKEN)
-        self.btnboundstack.configure(relief=RAISED)
-        self.btnfillstack.configure(relief=RAISED)
-        self.btnscanflostack.configure(relief=RAISED)
-        self.btnfill.configure(relief=RAISED)
-        self.btncir.configure(relief=RAISED)
-        self.btnsel.configure(relief=RAISED)
-        self.btnline.configure(relief=RAISED)
-        self.btnclear.configure(relief=RAISED)
-        self.btnboundfill.configure(relief=RAISED)
-        self.btn8wayfill.configure(relief=RAISED)
-        self.btnoutline.configure(relief=RAISED)
-        self.canvas.bind("<Button-1>", self.eightwayboundpos)
-        self.canvas.bind("<B1-Motion>", self.nothing)
-
-    def eightwayboundpos(self, event):
-        global get_coords
-        get_coords = self.canvas.coords(lines[0])
-        get_coords = tuple(map(int, get_coords))
-        x = event.x
-        y = event.y
-        self.eightwaybound(x,y)
-        
-    def eightwaybound(self, x, y):
-        item = self.canvas.find_closest(x, y)
-        item2 = self.canvas.find_closest(x-1, y)
-        item3 = self.canvas.find_closest(x, y-1)
-        item4 = self.canvas.find_closest(x+1, y)
-        item5 = self.canvas.find_closest(x, y+1)
-        item6 = self.canvas.find_closest(x+1, y+1)
-        item7 = self.canvas.find_closest(x-1, y-1)
-        item8 = self.canvas.find_closest(x-1, y+1)
-        item9 = self.canvas.find_closest(x+1, y-1)
-        current_color = self.canvas.itemcget(item, "fill")
-        self.canvas.create_rectangle(x, y, x, y, outline=self.color)
-        if (x >= 0 and (self.canvas.itemcget(item2, 'outline')) != self.outline and (self.canvas.itemcget(item2, 'fill')) != self.color):
-            self.eightwaybound((x-1), y)
-        if (x < 800 and (self.canvas.itemcget(item4, 'outline')) != self.outline and (self.canvas.itemcget(item4, 'fill')) != self.color): 
-            self.eightwaybound((x+1), y)
-        if (y >= 0 and (self.canvas.itemcget(item3, 'outline')) != self.outline and (self.canvas.itemcget(item3, 'fill')) != self.color): 
-            self.eightwaybound(x, y - 1)
-        if (y < 620 and (self.canvas.itemcget(item5, 'outline')) != self.outline and (self.canvas.itemcget(item5, 'fill')) != self.color):
-            self.eightwaybound(x,(y + 1))
-        if (x >= 0 and x <800 and y >= 0 and y < 620 and (self.canvas.itemcget(item6, 'outline')) != self.outline and (self.canvas.itemcget(item6, 'fill')) != self.color):
-            self.eightwaybound(x+1,(y + 1))
-        if (x >= 0 and x <800 and y >= 0 and y < 620 and (self.canvas.itemcget(item9, 'outline')) != self.outline and (self.canvas.itemcget(item9, 'fill')) != self.color):
-            self.eightwaybound(x + 1, y - 1)
-        if (x >= 0 and x <800 and y >= 0 and y < 620 and (self.canvas.itemcget(item7, 'outline')) != self.outline and (self.canvas.itemcget(item7, 'fill')) != self.color):
-            self.eightwaybound(x - 1, y - 1)
-        if (x >= 0 and x <800 and y >= 0 and y < 620 and (self.canvas.itemcget(item8, 'outline')) != self.outline and (self.canvas.itemcget(item8, 'fill')) != self.color):
-            self.eightwaybound(x - 1, y + 1)
+                    #print("stack 4", stack)
 
     def scan_fillflo_click(self):
         self.btnscanfillflo.configure(relief=SUNKEN)
-        self.btn8wayboundary.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=RAISED)
@@ -569,7 +374,6 @@ class Filling():
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
-        self.btn8wayfill.configure(relief=RAISED)
         self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.scanflopos)
         self.canvas.bind("<B1-Motion>", self.nothing)
@@ -616,7 +420,6 @@ class Filling():
     
     def scanflostack_click(self):
         self.btnscanfillflo.configure(relief=RAISED)
-        self.btn8wayboundary.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=SUNKEN)
@@ -626,7 +429,6 @@ class Filling():
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
-        self.btn8wayfill.configure(relief=RAISED)
         self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.scanflostackpos)
         self.canvas.bind("<B1-Motion>", self.nothing)
@@ -677,7 +479,6 @@ class Filling():
 
     def scanboundrec_click(self):
         self.btnscanfillflo.configure(relief=RAISED)
-        self.btn8wayboundary.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=SUNKEN)
@@ -687,7 +488,6 @@ class Filling():
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
-        self.btn8wayfill.configure(relief=RAISED)
         self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.scanboundpos)
         self.canvas.bind("<B1-Motion>", self.nothing)                   
@@ -731,7 +531,6 @@ class Filling():
 
     def scanboundstack_click(self):
         self.btnscanfillflo.configure(relief=RAISED)
-        self.btn8wayboundary.configure(relief=RAISED)
         self.btnboundstack.configure(relief=RAISED)
         self.btnfillstack.configure(relief=RAISED)
         self.btnscanflostack.configure(relief=SUNKEN)
@@ -741,7 +540,6 @@ class Filling():
         self.btnline.configure(relief=RAISED)
         self.btnclear.configure(relief=RAISED)
         self.btnboundfill.configure(relief=RAISED)
-        self.btn8wayfill.configure(relief=RAISED)
         self.btnoutline.configure(relief=RAISED)
         self.canvas.bind("<Button-1>", self.scanboundstackpos)
         self.canvas.bind("<B1-Motion>", self.nothing)    
