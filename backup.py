@@ -81,7 +81,7 @@ class Filling():
             y = main.winfo_rooty()
             height = main.winfo_height() + y
             width = main.winfo_width() + x
-            ImageGrab.grab().crop(((x+180), y, width, height)).save(result)
+            ImageGrab.grab().crop(((x+190), (y+8), (width-13), (height-13))).save(result)
     def load(self):
         self.filename = filedialog.askopenfilename()
         if self.filename:
