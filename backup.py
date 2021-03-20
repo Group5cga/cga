@@ -217,9 +217,6 @@ class Filling():
         self.canvas.bind("<B1-Motion>", self.nothing)
 
     def position(self,event):
-        global get_coords
-        get_coords = self.canvas.coords(lines[0])
-        get_coords = tuple(map(int, get_coords))
         x = event.x
         y = event.y
         #item = self.canvas.find_closest(event.x, event.y)
