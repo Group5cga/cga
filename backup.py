@@ -6,7 +6,7 @@ import sys
 sys.setrecursionlimit(2450)
 
 coords = {"x1":0,"y1":0,"x2":0,"y2":0}
-lines = []
+shape = []
 DEFAULT_COLOR = 'black'
 x = 0
 y = 0
@@ -128,7 +128,7 @@ class Filling():
     def line_click(self, e):
         coords["x1"] = e.x
         coords["y1"] = e.y
-        lines.append(self.canvas.create_line(coords["x1"],coords["y1"],coords["x1"],coords["y1"],fill=self.color))
+        shape.append(self.canvas.create_line(coords["x1"],coords["y1"],coords["x1"],coords["y1"],fill=self.color))
         
     def circle(self):
         self.btnboundstack.configure(relief=RAISED)
@@ -150,17 +150,17 @@ class Filling():
     def circle_click(self, e):
         coords["x1"] = e.x
         coords["y1"] = e.y
-        lines.append(self.canvas.create_oval(coords["x1"],coords["y1"],coords["x1"],coords["y1"],outline=self.outline, width=2))    
+        shape.append(self.canvas.create_oval(coords["x1"],coords["y1"],coords["x1"],coords["y1"],outline=self.outline, width=2))    
         
     def drag(self, e):
         coords["x2"] = e.x
         coords["y2"] = e.y
-        self.canvas.coords(lines[-1], coords["x1"],coords["y1"],coords["x2"],coords["y2"])
+        self.canvas.coords(shape[-1], coords["x1"],coords["y1"],coords["x2"],coords["y2"])
         
     def clear(self):
         self.canvas.delete("all")
         coords = {"x1":0,"y1":0,"x2":0,"y2":0}
-        lines = []
+        shape = []
         DEFAULT_COLOR = 'black'
         x = 0
         y = 0
